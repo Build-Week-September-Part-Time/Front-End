@@ -23,7 +23,7 @@ function AdminHome() {
             <Container>
                 <h1>Welcome 'Name',</h1>
                 <h3>CREATE A TASK FOR YOUR VOLUNTEERS</h3>
-                <h4>(Add form here)</h4>
+                <h4>(Add form here to add new task)</h4>
                 <TaskList/>
             </Container>
         
