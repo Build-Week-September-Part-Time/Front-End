@@ -17,7 +17,7 @@ function App() {
         {/* To be made PrivateRoute */}
         <Route path="/student-home" component={StudentHome}/>
         <Route path="/volunteer-home" component={VolunteerHome}/>
-        <Route path="/admin-hom" component={AdminHome}/>
+        <Route path="/admin-home" component={AdminHome}/>
       </Router>
 
     </div>
