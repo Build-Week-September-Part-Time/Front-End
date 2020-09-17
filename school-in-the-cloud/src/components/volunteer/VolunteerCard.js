@@ -6,4 +6,4 @@ function VolunteerCard() {
     return(<></>);
 }
 
-export default VolunteerCard();
+export default VolunteerCard;

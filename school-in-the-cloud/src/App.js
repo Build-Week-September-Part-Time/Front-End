@@ -6,6 +6,7 @@ import SignUp from "./components/SignUp";
 import StudentHome from "./components/student/StudentHome";
 import VolunteerHome from "./components/volunteer/VolunteerHome";
 import AdminHome from "./components/admin/AdminHome";
+import { UserContext } from "./contexts/UserContexts";
 
 function App() {
   return (

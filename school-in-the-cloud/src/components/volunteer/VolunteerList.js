@@ -6,4 +6,4 @@ function VolunteerList() {
     return(<></>);
 }
 
-export default VolunteerList();
+export default VolunteerList;

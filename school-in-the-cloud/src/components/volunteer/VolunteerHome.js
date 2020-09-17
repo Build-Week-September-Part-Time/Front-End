@@ -11,4 +11,4 @@ function VolunteerHome() {
    );
 }
 
-export default VolunteerHome();
+export default VolunteerHome;
