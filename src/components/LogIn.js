@@ -2,7 +2,7 @@ import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
-const SignupForm = () => {
+const Login = () => {
   const formik = useFormik({
     initialValues: {
       password: '',
@@ -22,6 +22,7 @@ const SignupForm = () => {
   });
   return (
     <form onSubmit={formik.handleSubmit}>
+        <h1>LOGIN</h1>
     
       <label htmlFor="email">Email Address</label>
       <input id="email" type="email" {...formik.getFieldProps('email')} />
@@ -40,5 +41,5 @@ const SignupForm = () => {
   );
 };
 
-export default SignupForm
+export default Login
 
