@@ -6,10 +6,9 @@ const TaskList = (props) => {
     //recieve 'tasks' as prop
     const {tasks} = useContext(TaskListContext)
 
-console.log(tasks)
     return (
         <div>
-        Task List
+        <h2>Task List</h2>
         <ul>
         {tasks.map(task =>(
             <Task 
