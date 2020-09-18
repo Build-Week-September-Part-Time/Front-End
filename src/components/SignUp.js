@@ -23,9 +23,9 @@ const [formType, setFormType] = useState({
       email: Yup.string()
         .email('Invalid email address')
         .required('Required'),
-     teacherCheck: Yup.bool().oneOf([true], 'Accept Terms & Conditions is required'),
-     studentCheck: Yup.bool().oneOf([true], 'Accept Terms & Conditions is required'),
-     adminCheck: Yup.bool().oneOf([true], 'Accept Terms & Conditions is required')
+     teacherCheck: Yup.bool(),
+     studentCheck: Yup.bool(),
+     adminCheck: Yup.bool()
 
     }),
     onSubmit: values => {
