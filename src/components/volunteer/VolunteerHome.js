@@ -1,16 +1,16 @@
 import React, {useState} from "react"; 
-import VolunteerCard from "./VolunteerCard";
+import VolunteerList from "./VolunteerList";
 
 function VolunteerHome() {
 
-    let [volunteers, setVolunteers] = useState(testVolunteers);
+    
     return(
     <div>
         <p>Volunteer Home Page</p>
-        {volunteers.map((volunteer, i) => {
-             return <VolunteerCard volunteer={volunteer}/>
-        }    
-        )}
+
+        <h3>Volunteer List:</h3>
+        <p> Here temporarily, will be moved</p>
+        <VolunteerList />
     </div>
         
    );
@@ -18,26 +18,3 @@ function VolunteerHome() {
 
 export default VolunteerHome;
 
-
-let testVolunteers = [
-    {
-        name: "Maria Avery",
-        email: "mAvery@gmail.com",
-        state: "Arizona",
-        availability: "Weekdays"
-    },
-    {
-        name: "Koli Woodsmith",
-        email: "KSmith@gmail.com",
-        state: "Rhode Island",
-        availability: "Weekends"
-    },
-    {
-        name: "Ursula K. LeGuin",
-        email: "UKLeGuin@gmail.com",
-        state: "Washington",
-        availability: "Everyday"
-    }
-
-
-];
