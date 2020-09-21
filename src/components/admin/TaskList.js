@@ -1,14 +1,21 @@
-import React from 'react'
+import React, {useContext} from 'react'
+import { TaskListContext } from '../../contexts/TaskListContext'
 import Task from './Task'
 
 const TaskList = (props) => {
     //recieve 'tasks' as prop
-console.log(props)
+    const {tasks} = useContext(TaskListContext)
+
     return (
         <div>
-        Task List
+        <h2>Task List</h2>
         <ul>
-        
+        {tasks.map(task =>(
+            <Task 
+            key={task.id}
+            task={task}
+            />
+        ))}
         </ul>
     </div>
     )

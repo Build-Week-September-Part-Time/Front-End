@@ -1,17 +1,28 @@
 import React from 'react'
+import styled from 'styled-components'
 
-const Task = () => {
+const Container = styled.div`
+    margin: 20px auto;
+    width: 90%;
+    border: 3px solid blue;
+    padding: 20px;
+    text-align: center;
+    border-radius: 25px;
+`
+
+const Task = (props) => {
     return (
-        <div>
-           <li>
-               <span>Task Title</span>
-               <span>Task Description</span>
+        <Container>
+         
+               <span>Title: {props.task.title}</span>
+               <br/>
+               <span>Description: {props.task.description}</span>
                 <div>
                     <button>DELETE</button>
                     <button>EDIT</button>
                 </div>
-            </li> 
-        </div>
+
+        </Container>
     )
 }
 
