@@ -10,7 +10,6 @@ const Login = () => {
     },
     validationSchema: Yup.object({
       password: Yup.string()
-        
         .required('Required'),
       email: Yup.string()
         .email('Invalid email address')

@@ -1,76 +1,88 @@
-import React, {useState} from 'react';
-import { Formik, Field, Form, ErrorMessage, useFormik } from 'formik';
-import * as Yup from 'yup';
+import React from "react";
+import ReactDOM from "react-dom";
+import { Formik, Field, Form } from "formik";
+import Volunteer from './FormTypes/volunteer'
 
-const SignupForm = () => {
-const [formType, setFormType] = useState({
-   
-})
-  const formik = useFormik({
-    initialValues: {
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+const determineForm = (values) => {
+   if(values.checked[0] === 'Student'){
+     console.log('student')
+     return <h1>Student</h1>
+   }else if (values.checked[0] === 'Admin'){
+     console.log('Admin')
+     return <h1>Admin</h1>
+   }else if(values.checked[0] === 'Volunteer'){
+     return <Volunteer />
+   }
+}
+
+const SignUp = () => (
+  <div>
+    <h1>Sign Up</h1>
+    <Formik
+      initialValues={{
         firstName: '',
         lastName: '',
         email: '',
-        teacherCheck: false,
-        studentCheck: false,
-        adminCheck: false
-    },
-    validationSchema: Yup.object({
-      firstName: Yup.string()
-        .required('Required'),
-        lastName: Yup.string()
-        .required('Required'),
-      email: Yup.string()
-        .email('Invalid email address')
-        .required('Required'),
-     teacherCheck: Yup.bool(),
-     studentCheck: Yup.bool(),
-     adminCheck: Yup.bool()
-
-    }),
-    onSubmit: values => {
-      alert(JSON.stringify(values, null, 2));
-    },
-  });
-  return (
-    <form onSubmit={formik.handleSubmit}>
-        <div>
-         <label htmlFor="firstName">First Name</label>
-      <input id="firstName" type="text" {...formik.getFieldProps('firstName')} />
-      {formik.touched.firstName && formik.errors.firstName ? (
-        <div>{formik.errors.firstName}</div>
-      ) : null}
-      </div>
-      <div>
-         <label htmlFor="lastName">LastName</label>
-      <input id="firstName" type="text" {...formik.getFieldProps('LastName')} />
-      {formik.touched.lastName && formik.errors.lastName ? (
-        <div>{formik.errors.lastName}</div>
-      ) : null}
-      </div>
+        toggle: false,
+        checked: []
+      }}
+      onSubmit={async values => {
+        await sleep(500);
+        alert(JSON.stringify(values, null, 2));
+      }}
+    >
+      {({ values }) => (
+        <Form>
+      
+      <label htmlFor="firstName">First Name</label>
+        <Field id="firstName" name="firstName" placeholder="Jane" />
+        <div></div>
+        <label htmlFor="lastName">Last Name</label>
+        <Field id="lastName" name="lastName" placeholder="Doe" />
+        <div></div>
+        <label htmlFor="email">Email</label>
+        <Field
+          id="email"
+          name="email"
+          placeholder="jane@acme.com"
+          type="email"
+        />
+     <div></div>
     
-      <label htmlFor="email">Email Address</label>
-      <input id="email" type="email" {...formik.getFieldProps('email')} />
-      {formik.touched.email && formik.errors.email ? (
-        <div>{formik.errors.email}</div>
-      ) : null}
-<div>
-<label htmlFor="password">Password</label>
-      <input id="password" type="text" {...formik.getFieldProps('password')} />
-      {formik.touched.password && formik.errors.password ? (
-        <div>{formik.errors.password}</div>
-      ) : null}
-      </div>
-       
+        
+         
+          <div role="group" aria-labelledby="checkbox-group">
+            <label>
+              <Field type="checkbox" name="checked" value="Student" />
+              Student
+            </label>
+            <label>
+              <Field type="checkbox" name="checked" value="Admin" />
+              Admin
+            </label>
+            <label>
+              <Field type="checkbox" name="checked" value="Volunteer" />
+              Volunteer
+            </label>
+          </div>
+
+
+          {determineForm(values)}
+
+          <button type="submit">Submit</button>
+
+        
+        </Form>
+      )}
+
+
+    </Formik>
 
    
+ 
+  </div>
+);
 
-
-
-      <button type="submit">Submit</button>
-    </form>
-  );
-};
-
-export default SignupForm
-
+export default SignUp
