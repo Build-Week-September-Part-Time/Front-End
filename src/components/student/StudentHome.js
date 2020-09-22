@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import VolunteerList from "../volunteer/VolunteerList";
 
 const Container = styled.div`
     margin: auto;
@@ -14,6 +15,7 @@ function StudentHome() {
     return (
 
         <Container>
+            {/* Edit to pull name from context probably */}
             <h1>Welcome 'Name',</h1>
             <h3>SEARCH FOR YOUR TUTOR</h3>
             <form >
@@ -79,6 +81,8 @@ function StudentHome() {
                     <option value="AZ">Weekend</option>
                 </select>	
             </form>
+            <h1>Volunteer List</h1>
+            <VolunteerList/>
         </Container>
     )
 }
