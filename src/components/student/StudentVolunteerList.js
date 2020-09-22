@@ -1,46 +1,54 @@
-import React, {useState} from 'react'
-import styled from 'styled-components'
-import StudentVolunteerList from "./StudentVolunteerList";
-
-const Container = styled.div`
-    margin: auto;
-    width: 90%;
-    border: 3px solid navy;
-    padding: 20px;
-    text-align: center;
-    border-radius: 25px;
-`
-// let defaultFilterBy = {
-//     state: "",
-//     availability: ""
-// }
-function StudentHome() {
-
-    // let [filterBy, setFilterBy] = useState(defaultFilterBy);
+import Axios from "axios";
+import React, {useState, useEffect} from "react"; 
+import VolunteerCard from "../volunteer/VolunteerCard";
+//import axiosWithAuth ?
+import axios from "axios";
+let defaultFilterBy = {
+    state: "",
+    availability: ""
+}
+function VolunteerList() {
+    //Replace with context
+    let [rawVolunteers, setRawVolunteers] = useState(testVolunteers);
+    let [filteredVolunteers, setFilteredVolunteers] = useState(rawVolunteers);
+    let [filterBy, setFilterBy] = useState(defaultFilterBy);
     
-    // function filterVolunteers() {
+    function filterVolunteers() {
 
-    // };
+    };
 
-    // const handleSubmit = e => {
-    //     e.preventDefault();
-    //     console.log("Submitted");
-    //     console.log(filterBy);
-    // };
+    const handleSubmit = e => {
+        e.preventDefault();
+        console.log("Submitted");
+        console.log(filterBy);
+    };
 
-    // const handleChange = e => {
-    //     setFilterBy({
-    //         ...filterBy, [e.target.name]: e.target.value
-    //     })
+    const handleChange = e => {
+        setFilterBy({
+            ...filterBy, [e.target.name]: e.target.value
+        })
         
-    // }
+    }
+    //Fetch volunteers
+    //Question, do I add volunteers to context here? Or somewhere else and then useContext here?
+    useEffect(() => {
 
-    return (
+       axios
+       .get("https://upgrade-tutor.herokuapp.com/dashboard/volunteers")
+       .then((res) => {
+    console.log(res.data);
+        setRawVolunteers(res.data);
+       })
+       .catch((err) => {
+           console.log("Volunteer get error");
+       })
 
-        <Container>
-            {/* Edit to pull name from context probably */}
-            <h1>Welcome 'Name',</h1>
-            {/* <h3>SEARCH FOR YOUR TUTOR</h3>
+
+    }, []);
+
+
+    return(<>
+      <h3>SEARCH FOR YOUR TUTOR</h3>
             <form onSubmit={handleSubmit}>
                 <select id="state" name="state" onChange={handleChange}>
                     <option value="">Search by State</option>
@@ -104,11 +112,37 @@ function StudentHome() {
                     <option value="weekend">Weekend</option>
                 </select>	
                 <button>Submit</button>
-            </form> */}
-            <h1>Volunteer List</h1>
-            <StudentVolunteerList/>
-        </Container>
-    )
+            </form>
+        {rawVolunteers.map((volunteer, i) => {
+             return <VolunteerCard volunteer={volunteer}/>
+        }    
+        )}
+    
+    
+    </>);
 }
 
-export default StudentHome;
+export default VolunteerList;
+
+let testVolunteers = [
+    {
+        name: "Maria Avery",
+        email: "mAvery@gmail.com",
+        state: "Arizona",
+        availability: "Weekdays"
+    },
+    {
+        name: "Koli Woodsmith",
+        email: "KSmith@gmail.com",
+        state: "Rhode Island",
+        availability: "Weekends"
+    },
+    {
+        name: "Ursula K. LeGuin",
+        email: "UKLeGuin@gmail.com",
+        state: "Washington",
+        availability: "Everyday"
+    }
+
+
+];
