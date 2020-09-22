@@ -19,31 +19,31 @@ function App() {
   const [tasks, setTasks] = useState([]);
 //   const [tasks] = useState(data);
   
-//   GET tasks from fake API 
-//   useEffect(()=>{
-// 	axios
-// 	.get("http://localhost:3000/tasks")
-// 	.then(res => {
-// 		console.log('YAYYY!!', res)
-// 		setTasks(res.data)
-// 	})
-// 	.catch(err =>{
-// 		console.log('NOPE!', err)
-// 	})
-// },[])
+//   GET tasks from API
+  useEffect(()=>{
+	axios
+	.get("https://upgrade-tutor.herokuapp.com/dashboard/assignTasks")
+	.then(res => {
+		console.log('YAYYY!!', res)
+		setTasks(res.data)
+	})
+	.catch(err =>{
+		console.log('NOPE!', err)
+	})
+},[])
 
-// 	//POST tasks to fake API
-// 	// useEffect((newTask)=>{
-// 	// 	axios
-// 	// 	.post("http://localhost:3000/tasks", newTask )
-// 	// 	.then(res => {
-// 	// 		console.log("yup", res)
-// 	// 		setTasks([...tasks, res.data])
-// 	// 	})
-// 	// 	.catch(err =>{
-// 	// 		console.log("nope", err)
-// 	// 	})
-// 	// })
+	// POST tasks to API
+	// useEffect((newTask)=>{
+	// 	axios
+	// 	.post("https://upgrade-tutor.herokuapp.com/dashboard/assignTasks", newTask )
+	// 	.then(res => {
+	// 		console.log("yup", res)
+	// 		// setTasks([...tasks, res.data])
+	// 	})
+	// 	.catch(err =>{
+	// 		console.log("nope", err)
+	// 	})
+	// })
 	
 	return (
 		<div>
