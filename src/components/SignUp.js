@@ -3,6 +3,62 @@ import ReactDOM from "react-dom";
 import { Formik, Field, Form } from "formik";
 import Volunteer from './FormTypes/volunteer'
 
+let states = ["Alaska",
+    "Alabama",
+    "Arkansas",
+    "American Samoa",
+    "Arizona",
+    "California",
+    "Colorado",
+    "Connecticut",
+    "District of Columbia",
+    "Delaware",
+    "Florida",
+    "Georgia",
+    "Guam",
+    "Hawaii",
+    "Iowa",
+    "Idaho",
+    "Illinois",
+    "Indiana",
+    "Kansas",
+    "Kentucky",
+    "Louisiana",
+    "Massachusetts",
+    "Maryland",
+    "Maine",
+    "Michigan",
+    "Minnesota",
+    "Missouri",
+    "Mississippi",
+    "Montana",
+    "North Carolina",
+    " North Dakota",
+    "Nebraska",
+    "New Hampshire",
+    "New Jersey",
+    "New Mexico",
+    "Nevada",
+    "New York",
+    "Ohio",
+    "Oklahoma",
+    "Oregon",
+    "Pennsylvania",
+    "Puerto Rico",
+    "Rhode Island",
+    "South Carolina",
+    "South Dakota",
+    "Tennessee",
+    "Texas",
+    "Utah",
+    "Virginia",
+    "Virgin Islands",
+    "Vermont",
+    "Washington",
+    "Wisconsin",
+    "West Virginia",
+    "Wyoming"]
+
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
 
@@ -21,7 +77,33 @@ const determineForm = (values) => {
     console.log('Admin')
     return <h1>Admin</h1>
   }else if(values.checked[0] === 'Volunteer'){
-    return <Volunteer  />
+    return  (
+      <>
+      <label >
+      Select your state
+<Field as="select" name="state">
+
+
+
+
+          {states.map((e, index) => {
+              return <option key={index} value={e}>{e}</option>
+          })}
+
+      </Field>
+  </label>
+  <label >
+     Pick your availability
+<Field as="select" name="available">
+        <option value='Morning'>Morning</option>
+        <option value='Afternoons'>Afternoons</option>
+        <option value='Evenings'>Evenings</option>
+        
+
+      </Field>
+  </label>
+  </>
+    )
   }
 }
 
@@ -34,7 +116,9 @@ const determineForm = (values) => {
         lastName: '',
         email: '',
         toggle: false,
-        checked: []
+        checked: [],
+        state: 'Alaska',
+        available: 'Morning'
       }}
       onSubmit={async values => {
         await sleep(500);
