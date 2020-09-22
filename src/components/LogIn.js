@@ -2,6 +2,8 @@ import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
+/* admin login is admin1@gmail.com and password, volunteer login is volunteer1@gmail.com and password, student login is jakegilman@gmail.com and password */
+
 const Login = () => {
   const formik = useFormik({
     initialValues: {
@@ -16,7 +18,8 @@ const Login = () => {
         .required('Required'),
     }),
     onSubmit: values => {
-      alert(JSON.stringify(values, null, 2));
+      // alert(JSON.stringify(values, null, 2));
+      console.log("values", values);
     },
   });
   return (
