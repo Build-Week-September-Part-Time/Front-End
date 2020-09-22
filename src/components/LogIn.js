@@ -1,10 +1,31 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import axios from "axios";
 
 /* admin login is admin1@gmail.com and password, volunteer login is volunteer1@gmail.com and password, student login is jakegilman@gmail.com and password */
 
 const Login = () => {
+
+  // let blankCredentials = {
+  //   email: "",
+  //   password: ""
+  // }
+  // let [credentials, setCredentials] = useState(blankCredentials);
+
+ let loginFunc = (values) => {
+   console.log("loginFunc");
+   console.log("passed values", values);
+
+   axios
+   .post("https://upgrade-tutor.herokuapp.com/auth/login", values)
+   .then((res) => {
+     console.log("res", res);
+   })
+   .catch((err) => console.log(err));
+ }
+
+
   const formik = useFormik({
     initialValues: {
       password: '',
@@ -19,7 +40,8 @@ const Login = () => {
     }),
     onSubmit: values => {
       // alert(JSON.stringify(values, null, 2));
-      console.log("values", values);
+      console.log("values email", values.email);
+      loginFunc(values);
     },
   });
   return (
