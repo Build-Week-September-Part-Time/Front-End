@@ -33,7 +33,16 @@ function VolunteerList() {
         }
 
          //Narrow down based on availability
-        
+         if(filterBy.availability != "") {
+            console.log("filtering");
+            console.log("Filter by", filterBy);
+            let tempFiltered = filteredVolunteers.filter((volunteer) => {
+                console.log(volunteer.availability);
+                return volunteer.availability.toLowerCase().includes(filterBy.availability.toLowerCase());
+            } 
+            );
+            setFilteredVolunteers(tempFiltered);
+        }
     };
 
     const handleSubmit = e => {
@@ -130,9 +139,9 @@ function VolunteerList() {
                 <br/>
                 <select id="availability" name="availability" onChange={handleChange}>
                     <option value="">Search by Availability</option>
-                    <option value="everyday">Everyday</option>
-                    <option value="weekday">Weekday</option>
-                    <option value="weekend">Weekend</option>
+                    <option value="every day">Every day</option>
+                    <option value="weekdays">Weekdays</option>
+                    <option value="weekends">Weekends</option>
                 </select>	
                 <button>Submit</button>
             </form>
@@ -166,7 +175,7 @@ let testVolunteers = [
         lastname: "LeGuin",
         email: "UKLeGuin@gmail.com",
         state: "Washington",
-        availability: "Everyday"
+        availability: "Every day"
     }
 
 
