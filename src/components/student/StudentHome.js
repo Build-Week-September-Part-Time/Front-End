@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import styled from 'styled-components'
 import VolunteerList from "../volunteer/VolunteerList";
 
@@ -10,16 +10,38 @@ const Container = styled.div`
     text-align: center;
     border-radius: 25px;
 `
-
+let defaultFilterBy = {
+    state: "",
+    availability: ""
+}
 function StudentHome() {
+
+    let [filterBy, setFilterBy] = useState(defaultFilterBy);
+    function filterVolunteers() {
+
+    };
+
+    const handleSubmit = e => {
+        e.preventDefault();
+        console.log("Submitted");
+        console.log(filterBy);
+    };
+
+    const handleChange = e => {
+        setFilterBy({
+            ...filterBy, [e.target.name]: e.target.value
+        })
+        
+    }
+
     return (
 
         <Container>
             {/* Edit to pull name from context probably */}
             <h1>Welcome 'Name',</h1>
             <h3>SEARCH FOR YOUR TUTOR</h3>
-            <form >
-                <select id="state" name="state">
+            <form onSubmit={handleSubmit}>
+                <select id="state" name="state" onChange={handleChange}>
                     <option value="">Search by State</option>
                     <option value="AL">Alabama</option>
                     <option value="AK">Alaska</option>
@@ -74,12 +96,13 @@ function StudentHome() {
                     <option value="WY">Wyoming</option>
                 </select>	
                 <br/>
-                <select id="availability" name="availability">
+                <select id="availability" name="availability" onChange={handleChange}>
                     <option value="">Search by Availability</option>
-                    <option value="AL">Everyday</option>
-                    <option value="AK">Weekday</option>
-                    <option value="AZ">Weekend</option>
+                    <option value="everyday">Everyday</option>
+                    <option value="weekday">Weekday</option>
+                    <option value="weekend">Weekend</option>
                 </select>	
+                <button>Submit</button>
             </form>
             <h1>Volunteer List</h1>
             <VolunteerList/>
