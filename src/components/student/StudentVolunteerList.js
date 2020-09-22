@@ -10,24 +10,46 @@ let defaultFilterBy = {
 function VolunteerList() {
     //Replace with context
     let [rawVolunteers, setRawVolunteers] = useState(testVolunteers);
-    let [filteredVolunteers, setFilteredVolunteers] = useState(rawVolunteers);
+    let [filteredVolunteers, setFilteredVolunteers] = useState(testVolunteers);
     let [filterBy, setFilterBy] = useState(defaultFilterBy);
     
-    function filterVolunteers() {
+    // console.log("raw", rawVolunteers);
+    // console.log("Filtered", filteredVolunteers);
 
+    function filterVolunteers() {
+        console.log("Filter called");
+        setFilteredVolunteers(rawVolunteers);
+
+         //Narrow down based on state
+         if(filterBy.state != "") {
+            console.log("filtering");
+            console.log("Filter by", filterBy);
+            let tempFiltered = filteredVolunteers.filter((volunteer) => {
+                console.log(volunteer.state);
+                return volunteer.state.toLowerCase().includes(filterBy.state.toLowerCase());
+            } 
+            );
+            setFilteredVolunteers(tempFiltered);
+        }
+
+         //Narrow down based on availability
+        
     };
 
     const handleSubmit = e => {
         e.preventDefault();
         console.log("Submitted");
-        console.log(filterBy);
+        // console.log(filterBy);
+        filterVolunteers();
     };
 
     const handleChange = e => {
         setFilterBy({
             ...filterBy, [e.target.name]: e.target.value
         })
-        
+       
+
+       
     }
     //Fetch volunteers
     //Question, do I add volunteers to context here? Or somewhere else and then useContext here?
@@ -38,6 +60,7 @@ function VolunteerList() {
        .then((res) => {
     console.log(res.data);
         setRawVolunteers(res.data);
+        setFilteredVolunteers(res.data);
        })
        .catch((err) => {
            console.log("Volunteer get error");
@@ -54,7 +77,7 @@ function VolunteerList() {
                     <option value="">Search by State</option>
                     <option value="AL">Alabama</option>
                     <option value="AK">Alaska</option>
-                    <option value="AZ">Arizona</option>
+                    <option value="Arizona">Arizona</option>
                     <option value="AR">Arkansas</option>
                     <option value="CA">California</option>
                     <option value="CO">Colorado</option>
@@ -113,7 +136,7 @@ function VolunteerList() {
                 </select>	
                 <button>Submit</button>
             </form>
-        {rawVolunteers.map((volunteer, i) => {
+        {filteredVolunteers.map((volunteer, i) => {
              return <VolunteerCard volunteer={volunteer}/>
         }    
         )}
@@ -126,19 +149,21 @@ export default VolunteerList;
 
 let testVolunteers = [
     {
-        name: "Maria Avery",
+       
         email: "mAvery@gmail.com",
         state: "Arizona",
         availability: "Weekdays"
     },
     {
-        name: "Koli Woodsmith",
+        firstname: "Koli",
+        lastname: "Woodsmight",
         email: "KSmith@gmail.com",
         state: "Rhode Island",
         availability: "Weekends"
     },
     {
-        name: "Ursula K. LeGuin",
+        firstname: "Ursula K.",
+        lastname: "LeGuin",
         email: "UKLeGuin@gmail.com",
         state: "Washington",
         availability: "Everyday"
