@@ -121,8 +121,7 @@ const determineForm = (values) => {
         available: 'Morning'
       }}
       onSubmit={async values => {
-        await sleep(500);
-        alert(JSON.stringify(values, null, 2));
+        console.log(values)
       }}
     >
       {({ values }) => (
