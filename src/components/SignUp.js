@@ -1,24 +1,32 @@
-import React from "react";
+import React, {useState} from "react";
 import ReactDOM from "react-dom";
 import { Formik, Field, Form } from "formik";
 import Volunteer from './FormTypes/volunteer'
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
+
+
+function SignUp  (props){
+
+
+const [volunteerState, setVolunteerState] = useState("")
+
+
 const determineForm = (values) => {
-   if(values.checked[0] === 'Student'){
-     console.log('student')
-     return <h1>Student</h1>
-   }else if (values.checked[0] === 'Admin'){
-     console.log('Admin')
-     return <h1>Admin</h1>
-   }else if(values.checked[0] === 'Volunteer'){
-     return <Volunteer />
-   }
+  if(values.checked[0] === 'Student'){
+    console.log('student')
+    return <h1>Student</h1>
+  }else if (values.checked[0] === 'Admin'){
+    console.log('Admin')
+    return <h1>Admin</h1>
+  }else if(values.checked[0] === 'Volunteer'){
+    return <Volunteer  />
+  }
 }
 
-const SignUp = () => (
-  <div>
+
+  return (<div>
     <h1>Sign Up</h1>
     <Formik
       initialValues={{
@@ -82,7 +90,7 @@ const SignUp = () => (
 
    
  
-  </div>
-);
+  </div>)
+};
 
 export default SignUp
