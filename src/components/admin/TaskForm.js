@@ -1,4 +1,6 @@
 import React, {useContext, useState} from 'react'
+import axiosWithAuth from "../../utils/axiosWithAuth"
+
 import styled from 'styled-components'
 import { TaskListContext } from '../../contexts/TaskListContext'
 
@@ -33,10 +35,10 @@ const TaskForm = () => {
     //     setTitle('')
     // }
 
-    // const postNewTodo = todo =>{
-    //     axios
-    //     .post()
-    // }
+    const postNewTask = task =>{
+        axiosWithAuth()
+        .post("https://upgrade-tutor.herokuapp.com/dashboard/assignTasks")
+    }
 
     return (
         <Container>

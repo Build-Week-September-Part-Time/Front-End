@@ -22,11 +22,15 @@ const Container = styled.div`
 function AdminHome() {
 const {getTask} = useContext(TaskListContext)
 
+
     return (
       
             <Container>
                 <h1>Welcome 'Name',</h1>
-                <h3>CREATE A TASK FOR YOUR VOLUNTEERS</h3>
+                <button>See All Volunteers</button>
+                <br/>
+                <br/>
+                <button>See All Tasks</button>
                 <TaskForm/>
                 <TaskList/>
             </Container>
