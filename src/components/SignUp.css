@@ -4,7 +4,7 @@ html {
     font-size: 62.5%;
 }
 .signup {
-    background-color: lightgray;
+    background-color: #E3E3E3;
     box-sizing: border-box;
     width: 80%;
     max-width: 800px;
@@ -16,7 +16,7 @@ html {
 }
 .signup h1 {
     font-size: 2rem;
-    font-family: sans-serif;
+    text-transform: uppercase;
     width: 100%;
 }
 .signup form {
