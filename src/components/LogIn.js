@@ -22,8 +22,17 @@ const Login = (props) => {
    
     setUser(res.data.user);
     //Redirects after logging in
-    //Make so it checks type
-    props.history.push("/admin-home");
+  
+    if(res.data.user.accountType == "volunteer") {
+      props.history.push("/volunteer-home");
+    }
+    else if(res.data.user.accountType == "admin") {
+      props.history.push("/admin-home");
+    }
+    else if(res.data.user.accountType == "student") {
+      props.history.push("/student-home");
+    }
+    
    })
    .catch((err) => console.log(err));
  }

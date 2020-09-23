@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import { TaskListContext } from "./contexts/TaskListContext";
 import CurrentUserContext from "./contexts/CurrentUserContext";
+import PrivateRoute from "./utils/PrivateRoute";
 import data from "./data"
 import axios from 'axios'
 
@@ -66,9 +67,9 @@ function App() {
 					<Route path='/login' component={LogIn} />
 					<Route path='/signup' component={SignUp} />
 					{/* To be made PrivateRoute */}
-					<Route path='/student-home' component={StudentHome} />
-					<Route path='/volunteer-home' component={VolunteerHome} />
-					<Route path='/admin-home' component={AdminHome} />
+					<PrivateRoute path='/student-home' component={StudentHome} />
+					<PrivateRoute path='/volunteer-home' component={VolunteerHome} />
+					<PrivateRoute path='/admin-home' component={AdminHome} />
 				</TaskListContext.Provider>
 				</CurrentUserContext.Provider>
 			</Router>
