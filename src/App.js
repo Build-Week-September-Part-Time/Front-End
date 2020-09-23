@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import { TaskListContext } from "./contexts/TaskListContext";
 import CurrentUserContext from "./contexts/CurrentUserContext";
+import VolunteerListContext from "./contexts/VolunteerListContext";
 import PrivateRoute from "./utils/PrivateRoute";
 import data from "./data"
 import axios from 'axios'
@@ -19,6 +20,7 @@ import Axios from "axios";
 
 function App() {
   const [tasks, setTasks] = useState([]);
+  const [volunteers, setVolunteers] = useState ([]);
   const [currentUser, setCurrentUser] = useState({});
 
   //This lags slightly behind and doesn't update until next render. How do I fix?
@@ -56,12 +58,28 @@ function App() {
 // 	// 	})
 // 	// })
 	
+	useEffect(() => {
+
+	axios
+		.get("https://upgrade-tutor.herokuapp.com/dashboard/volunteers")
+		.then((res) => {
+			 setVolunteers(res.data);
+			 console.log("App volunteers", volunteers)
+		})
+		.catch((err) => {
+			console.log("Volunteer get error");
+		})
+
+
+ 	}, []);
+
 	return (
 		<div>
 			<h1>⬆upGrade</h1>
 
 			<Router>
 				<CurrentUserContext.Provider value={{currentUser, setUser}}>
+				<VolunteerListContext.Provider value={{volunteers}}>
 				<TaskListContext.Provider value={{tasks}}>
 					<NavBar />
 					<Route path='/login' component={LogIn} />
@@ -71,6 +89,7 @@ function App() {
 					<PrivateRoute path='/volunteer-home' component={VolunteerHome} />
 					<PrivateRoute path='/admin-home' component={AdminHome} />
 				</TaskListContext.Provider>
+				</VolunteerListContext.Provider>
 				</CurrentUserContext.Provider>
 			</Router>
 		</div>

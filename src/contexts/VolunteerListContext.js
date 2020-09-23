@@ -1,3 +1,5 @@
 import { createContext } from "react"
 
-export const VolunteerListContext = createContext();
+ const VolunteerListContext = createContext();
+
+ export default VolunteerListContext;
