@@ -5,7 +5,7 @@ function VolunteerCard(props) {
 
 
     return(<Card>
-        <h3>{props.volunteer.name}</h3>
+        <h3>{props.volunteer.firstname} {props.volunteer.lastname}</h3>
         <p>Email: {props.volunteer.email}</p>
         <p>State: {props.volunteer.state}</p>
         <p>Availability: {props.volunteer.availability}</p>
