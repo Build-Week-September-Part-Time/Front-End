@@ -1,5 +1,6 @@
 import React, {useState} from "react"; 
 import VolunteerList from "./VolunteerList";
+import CurrentVolunteer from "./CurrentVolunteer";
 
 
 //Requests sent to https://upgrade-tutor.herokuapp.com/
@@ -13,7 +14,7 @@ function VolunteerHome() {
     <div>
         <p>Volunteer Home Page</p>
 
-        <h3>Your Data:</h3>
+        <CurrentVolunteer editing={false}/>
 
 
         <h3>Your tasks</h3>

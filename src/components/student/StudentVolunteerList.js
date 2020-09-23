@@ -16,25 +16,17 @@ function VolunteerList() {
     let [filteredVolunteers, setFilteredVolunteers] = useState(testVolunteers);  
      let [filterBy, setFilterBy] = useState(defaultFilterBy);
     //And then both raw and filtered were set by axios call initially
+    const { volunteers } = useContext(VolunteerListContext);
+    useEffect(() => {
+      console.log("context volunteers", volunteers);
+      setRawVolunteers(volunteers);
+      setFilteredVolunteers(volunteers);
+    }, [volunteers]);
+
+  
 
 
-
-
-    //Broken attempt
-     //Replace with context
-    // const {volunteers}= useContext(VolunteerListContext);
     
-    
-   
-    
-    // useEffect(() => {
-    //     const copiedVolunteers = [...volunteers];
-    //     setRawVolunteers(copiedVolunteers);
-    //     setFilteredVolunteers(copiedVolunteers);
-        
-
-    // }, [])
-
 
     function filterVolunteers() {
         console.log("Filter called");
