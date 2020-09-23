@@ -108,7 +108,7 @@ const determineForm = (values) => {
 }
 
 
-  return (<div>
+  return (<div class='signup'>
     <h1>Sign Up</h1>
     <Formik
       initialValues={{
