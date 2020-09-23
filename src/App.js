@@ -30,20 +30,20 @@ function App() {
 	setCurrentUser(currentUser);
 	console.log(currentUser);
   };
-//   const [tasks] = useState(data);
+
   
-//   GET tasks from fake API 
-//   useEffect(()=>{
-// 	axios
-// 	.get("http://localhost:3000/tasks")
-// 	.then(res => {
-// 		console.log('YAYYY!!', res)
-// 		setTasks(res.data)
-// 	})
-// 	.catch(err =>{
-// 		console.log('NOPE!', err)
-// 	})
-// },[])
+//   GET tasks from API 
+useEffect(()=>{
+	axios
+	.get("https://upgrade-tutor.herokuapp.com/dashboard/assignTasks")
+	.then(res => {
+		console.log('YAYYY!!', res)
+		setTasks(res.data)
+	})
+	.catch(err =>{
+		console.log('NOPE!', err)
+	})
+},[])
 
 // 	//POST tasks to fake API
 // 	// useEffect((newTask)=>{

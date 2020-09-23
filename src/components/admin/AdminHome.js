@@ -1,12 +1,14 @@
-
 import React, {useEffect, useContext} from 'react'
 import axios from 'axios'
 import styled from 'styled-components'
-import { TaskListContext } from '../../contexts/TaskListContext'
+import CurrentUserContext from '../../contexts/CurrentUserContext'
+
 
 //components
 import TaskList from './TaskList'
 import TaskForm from './TaskForm'
+import VolunteerList from '../volunteer/VolunteerList'
+import { NavLink } from 'react-router-dom'
 
 
 const Container = styled.div`
@@ -20,15 +22,15 @@ const Container = styled.div`
 
 
 function AdminHome() {
-const {getTask} = useContext(TaskListContext)
 
+const { currentUser } = useContext(CurrentUserContext)
+console.log(currentUser)
     return (
-      
+       
             <Container>
-                <h1>Welcome 'Name',</h1>
-                <h3>CREATE A TASK FOR YOUR VOLUNTEERS</h3>
-                <TaskForm/>
-                <TaskList/>
+                <h1>Welcome {currentUser.firstname},</h1>
+                <h2> Check out all of the tuturs:</h2>
+                <VolunteerList/>
             </Container>
         
     )
