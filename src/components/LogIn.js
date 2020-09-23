@@ -8,7 +8,7 @@ import CurrentUserContext from "../contexts/CurrentUserContext";
 
 const Login = (props) => {
 
- const {currentUser, setEmail} = useContext(CurrentUserContext);
+ const {currentUser, setUser} = useContext(CurrentUserContext);
 
  let loginFunc = (values) => {
    console.log("loginFunc");
@@ -18,11 +18,12 @@ const Login = (props) => {
    .post("https://upgrade-tutor.herokuapp.com/auth/login", values)
    .then((res) => {
      console.log(res);
-    //  console.log("res headers", res.headers);
-
-    setEmail(values.email);
+    localStorage.setItem("token", res.data.token);
+   
+    setUser(res.data.user);
     //Redirects after logging in
-    // props.history.push("/studenthome");
+    //Make so it checks type
+    props.history.push("/admin-home");
    })
    .catch((err) => console.log(err));
  }

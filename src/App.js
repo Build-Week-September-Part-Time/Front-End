@@ -20,9 +20,11 @@ function App() {
   const [tasks, setTasks] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
 
-  const setEmail = currentEmail => {
+  //This lags slightly behind and doesn't update until next render. How do I fix?
+  const setUser = currentUser => {
+	console.log("Set user, current usder", currentUser);
 	//Set the email of the logged in user
-	setCurrentUser({...currentUser, email:currentEmail})
+	setCurrentUser(currentUser);
 	console.log(currentUser);
   };
 //   const [tasks] = useState(data);
@@ -58,7 +60,7 @@ function App() {
 			<h1>⬆upGrade</h1>
 
 			<Router>
-				<CurrentUserContext.Provider value={{currentUser, setEmail}}>
+				<CurrentUserContext.Provider value={{currentUser, setUser}}>
 				<TaskListContext.Provider value={{tasks}}>
 					<NavBar />
 					<Route path='/login' component={LogIn} />
