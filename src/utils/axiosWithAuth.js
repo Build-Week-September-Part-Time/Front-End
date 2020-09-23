@@ -1,12 +1,12 @@
 import axios from "axios";
 
 export const axiosWithAuth = () => {
-    const token = localStorage.getItem("token");
 
-    return axios.create({
-        baseUrl: "https://upgrade-tutor.herokuapp.com/",
-        headers: {
-            Authorization: token
-        },
-    });
-};
+ const token = localStorage.getItem("token");
+
+ return axios.create({
+    baseURL: "https://upgrade-tutor.herokuapp.com",
+    headers: {
+        Authorization: token
+    },
+});
