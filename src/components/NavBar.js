@@ -19,7 +19,7 @@ export default function NavBar() {
             {/* <br/> 
             <NavLink to="/">Home</NavLink> */}
             <br/>
-            <a href="https://upgradetutors.netlify.app/">Landing Page</a>
+            <a href="https://upgradetutors.netlify.app/">Home</a>
         </div>
     )
 }

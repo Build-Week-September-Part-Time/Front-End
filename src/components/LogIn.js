@@ -11,13 +11,13 @@ const Login = (props) => {
  const {currentUser, setUser} = useContext(CurrentUserContext);
 
  let loginFunc = (values) => {
-   console.log("loginFunc");
-   console.log("passed values", values);
+  //  console.log("loginFunc");
+  //  console.log("passed values", values);
 
    axios
    .post("https://upgrade-tutor.herokuapp.com/auth/login", values)
    .then((res) => {
-     console.log(res);
+    //  console.log(res);
     localStorage.setItem("token", res.data.token);
    
     setUser(res.data.user);
@@ -52,7 +52,7 @@ const Login = (props) => {
     }),
     onSubmit: values => {
       // alert(JSON.stringify(values, null, 2));
-      console.log("values email", values.email);
+      // console.log("values email", values.email);
       loginFunc(values);
     },
   });
