@@ -63,8 +63,9 @@ function App() {
 	axios
 		.get("https://upgrade-tutor.herokuapp.com/dashboard/volunteers")
 		.then((res) => {
+			
 			 setVolunteers(res.data);
-			 console.log("App volunteers", volunteers)
+			 
 		})
 		.catch((err) => {
 			console.log("Volunteer get error");

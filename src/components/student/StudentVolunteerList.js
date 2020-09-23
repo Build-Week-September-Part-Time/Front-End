@@ -1,20 +1,40 @@
 import Axios from "axios";
-import React, {useState, useEffect} from "react"; 
+import React, {useState, useEffect, useContext} from "react"; 
 import VolunteerCard from "../volunteer/VolunteerCard";
+import VolunteerListContext from "../../contexts/VolunteerListContext";
 //import axiosWithAuth ?
 import axios from "axios";
 let defaultFilterBy = {
     state: "",
     availability: ""
 }
+
 function VolunteerList() {
-    //Replace with context
-    let [rawVolunteers, setRawVolunteers] = useState(testVolunteers);
-    let [filteredVolunteers, setFilteredVolunteers] = useState(testVolunteers);
-    let [filterBy, setFilterBy] = useState(defaultFilterBy);
+
+    //  Original code without context
+    let [rawVolunteers, setRawVolunteers] = useState(testVolunteers);  
+    let [filteredVolunteers, setFilteredVolunteers] = useState(testVolunteers);  
+     let [filterBy, setFilterBy] = useState(defaultFilterBy);
+    //And then both raw and filtered were set by axios call initially
+
+
+
+
+    //Broken attempt
+     //Replace with context
+    // const {volunteers}= useContext(VolunteerListContext);
     
-    // console.log("raw", rawVolunteers);
-    // console.log("Filtered", filteredVolunteers);
+    
+   
+    
+    // useEffect(() => {
+    //     const copiedVolunteers = [...volunteers];
+    //     setRawVolunteers(copiedVolunteers);
+    //     setFilteredVolunteers(copiedVolunteers);
+        
+
+    // }, [])
+
 
     function filterVolunteers() {
         console.log("Filter called");
@@ -62,21 +82,23 @@ function VolunteerList() {
     }
     //Fetch volunteers
     //Question, do I add volunteers to context here? Or somewhere else and then useContext here?
-    useEffect(() => {
+    // useEffect(() => {
 
-       axios
-       .get("https://upgrade-tutor.herokuapp.com/dashboard/volunteers")
-       .then((res) => {
-    console.log(res.data);
-        setRawVolunteers(res.data);
-        setFilteredVolunteers(res.data);
-       })
-       .catch((err) => {
-           console.log("Volunteer get error");
-       })
+    //    axios
+    //    .get("https://upgrade-tutor.herokuapp.com/dashboard/volunteers")
+    //    .then((res) => {
+    // console.log(res.data);
+    //     setRawVolunteers(res.data);
+    //     setFilteredVolunteers(res.data);
+    //    })
+    //    .catch((err) => {
+    //        console.log("Volunteer get error");
+    //    })
+
+        
 
 
-    }, []);
+    // }, []);
 
 
     return(<>
@@ -158,7 +180,8 @@ export default VolunteerList;
 
 let testVolunteers = [
     {
-       
+       firstname: "Test ",
+       lastname: "Data",
         email: "mAvery@gmail.com",
         state: "Arizona",
         availability: "Weekdays"
