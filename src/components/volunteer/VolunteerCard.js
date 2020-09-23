@@ -1,15 +1,30 @@
-import React from "react"; 
+import React, { useState } from "react"; 
 import styled from 'styled-components'
+import TaskList from '../admin/TaskList'
 
 function VolunteerCard(props) {
+    const [showTasks, setShowTasks] = useState(false)
 
+    const showTaskList = (e) =>{
+        setShowTasks(true)
+    }
 
-    return(<Card>
-        <h3>{props.volunteer.firstname} {props.volunteer.lastname}</h3>
-        <p>Email: {props.volunteer.email}</p>
-        <p>State: {props.volunteer.state}</p>
-        <p>Availability: {props.volunteer.availability}</p>
-    </Card>);
+    return(
+    <div>
+        <Card>
+            <h3>{props.volunteer.firstname} {props.volunteer.lastname}</h3>
+            <p>Email: {props.volunteer.email}</p>
+            <p>State: {props.volunteer.state}</p>
+            <p>Availability: {props.volunteer.availability}</p>
+            <button onClick={()=> showTaskList()}>Show Tasks</button>
+            {showTasks && (
+                <TaskList/>
+            )}
+         
+        </Card>
+        
+    </div>
+    );
 }
 
 export default VolunteerCard;

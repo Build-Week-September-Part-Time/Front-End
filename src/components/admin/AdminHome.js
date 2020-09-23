@@ -1,14 +1,10 @@
-import React, {useEffect, useContext} from 'react'
-import axios from 'axios'
+import React, {useContext} from 'react'
 import styled from 'styled-components'
 import CurrentUserContext from '../../contexts/CurrentUserContext'
 
 
 //components
-import TaskList from './TaskList'
-import TaskForm from './TaskForm'
 import VolunteerList from '../volunteer/VolunteerList'
-import { NavLink } from 'react-router-dom'
 
 
 const Container = styled.div`
@@ -18,21 +14,25 @@ const Container = styled.div`
     padding: 20px;
     text-align: center;
     border-radius: 25px;
+h1{
+    text-transform: capitalize;
+}
 `
 
-
 function AdminHome() {
-
 const { currentUser } = useContext(CurrentUserContext)
-console.log(currentUser)
+
+
+
     return (
-       
+        <div>
+   
             <Container>
                 <h1>Welcome {currentUser.firstname},</h1>
-                <h2> Check out all of the tuturs:</h2>
-                <VolunteerList/>
+                <h2> Available Tutors</h2>
+                <VolunteerList />
             </Container>
-        
+        </div>
     )
 }
 export default AdminHome
