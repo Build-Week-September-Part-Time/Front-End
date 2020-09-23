@@ -16,8 +16,10 @@ export default function NavBar() {
             <br/> 
             {/* To be made PrivateRoute - will remove after forms are created*/}
             <NavLink to="/volunteer-home">Volunteer Dashboard</NavLink>
-            <br/> 
-            <NavLink to="/">Home</NavLink>
+            {/* <br/> 
+            <NavLink to="/">Home</NavLink> */}
+            <br/>
+            <a href="https://upgradetutors.netlify.app/">Landing Page</a>
         </div>
     )
 }

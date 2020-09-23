@@ -8,13 +8,12 @@ import CurrentVolunteer from "./CurrentVolunteer";
 
 function VolunteerHome() {
 
-
     
     return(
     <div>
         <p>Volunteer Home Page</p>
 
-        <CurrentVolunteer editing={false}/>
+        <CurrentVolunteer/>
 
 
         <h3>Your tasks</h3>
