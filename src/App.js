@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import { TaskListContext } from "./contexts/TaskListContext";
+import CurrentUserContext from "./contexts/CurrentUserContext";
+import PrivateRoute from "./utils/PrivateRoute";
 import data from "./data"
 import axios from 'axios'
 
@@ -17,6 +19,15 @@ import Axios from "axios";
 
 function App() {
   const [tasks, setTasks] = useState([]);
+  const [currentUser, setCurrentUser] = useState({});
+
+  //This lags slightly behind and doesn't update until next render. How do I fix?
+  const setUser = currentUser => {
+	console.log("Set user, current usder", currentUser);
+	//Set the email of the logged in user
+	setCurrentUser(currentUser);
+	console.log(currentUser);
+  };
 //   const [tasks] = useState(data);
   
 //   GET tasks from fake API 
@@ -50,15 +61,17 @@ function App() {
 			<h1>⬆upGrade</h1>
 
 			<Router>
+				<CurrentUserContext.Provider value={{currentUser, setUser}}>
 				<TaskListContext.Provider value={{tasks}}>
 					<NavBar />
 					<Route path='/login' component={LogIn} />
 					<Route path='/signup' component={SignUp} />
 					{/* To be made PrivateRoute */}
-					<Route path='/student-home' component={StudentHome} />
-					<Route path='/volunteer-home' component={VolunteerHome} />
-					<Route path='/admin-home' component={AdminHome} />
+					<PrivateRoute path='/student-home' component={StudentHome} />
+					<PrivateRoute path='/volunteer-home' component={VolunteerHome} />
+					<PrivateRoute path='/admin-home' component={AdminHome} />
 				</TaskListContext.Provider>
+				</CurrentUserContext.Provider>
 			</Router>
 		</div>
 	);
