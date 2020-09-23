@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import { TaskListContext } from "./contexts/TaskListContext";
+import CurrentUserContext from "./contexts/CurrentUserContext";
 import data from "./data"
 import axios from 'axios'
 
@@ -17,6 +18,13 @@ import Axios from "axios";
 
 function App() {
   const [tasks, setTasks] = useState([]);
+  const [currentUser, setCurrentUser] = useState({});
+
+  const setEmail = currentEmail => {
+	//Set the email of the logged in user
+	setCurrentUser({...currentUser, email:currentEmail})
+	console.log(currentUser);
+  };
 //   const [tasks] = useState(data);
   
 //   GET tasks from fake API 
@@ -50,6 +58,7 @@ function App() {
 			<h1>⬆upGrade</h1>
 
 			<Router>
+				<CurrentUserContext.Provider value={{currentUser, setEmail}}>
 				<TaskListContext.Provider value={{tasks}}>
 					<NavBar />
 					<Route path='/login' component={LogIn} />
@@ -59,6 +68,7 @@ function App() {
 					<Route path='/volunteer-home' component={VolunteerHome} />
 					<Route path='/admin-home' component={AdminHome} />
 				</TaskListContext.Provider>
+				</CurrentUserContext.Provider>
 			</Router>
 		</div>
 	);
