@@ -1,4 +1,67 @@
 /* Sign Up Form Styles */
+
+html {
+    font-size: 62.5%;
+}
 .signup {
-    background-color: thistle;
+    background-color: lightgray;
+    box-sizing: border-box;
+    width: 80%;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.signup h1 {
+    font-size: 2rem;
+    font-family: sans-serif;
+    width: 100%;
+}
+.signup form {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+.signup label {
+    display: block;
+    width: 60%;
+    font-size: 1.8rem;
+    margin: 8px 0;  
+}
+.signup input {
+    padding: 8px 16px;
+    margin-bottom: 8px;
+    width: 50%;
+}
+.signup input[type=checkbox] {
+    width: 30%;
+}
+.signup select {
+    margin: 8px 0 8px 16px;
+    padding: 8px 16px;
+}
+.signup button {
+    margin-top: 16px;
+    padding: 8px 16px;
+    background: #2F51B6;
+    color: #f9f9f9;
+    font-size: 1.8rem;
+    border-radius: 5px;
+}
+.signup button:hover {
+    background: #feac06;
+}
+
+@media screen and (max-width: 800px){
+    .signup input {
+        width: 80%;
+    }
+}
+@media screen and (max-width: 500px){
+    .signup {
+        width: 90%;
+        min-width: 300px;
+    }
 }
