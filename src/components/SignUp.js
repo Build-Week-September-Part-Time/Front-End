@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import ReactDOM from "react-dom";
 import { Formik, Field, Form, useFormik } from "formik";
 import * as Yup from 'yup';
@@ -65,8 +65,6 @@ let states = ["Alaska",
 
 function SignUp  (props){
 
-
-const [volunteerState, setVolunteerState] = useState("")
 const formik = useFormik({
   initialValues: {
     firstName: '',
@@ -76,7 +74,8 @@ const formik = useFormik({
     toggle: false,
     checked: [],
     state: 'Alaska',
-    available: 'Morning'
+    available: 'Morning',
+   
   },
   validationSchema: Yup.object({
     firstName: Yup.string()
@@ -89,12 +88,25 @@ const formik = useFormik({
       .required('Required'),
     password: Yup.string()
       .required('You must enter a password')
-      .min(8, 'password must be at least 8 characters')
+      .min(8, 'password must be at least 8 characters'),
+    
+      available: Yup.string(),
+      
+      checked: Yup.array()
+      .required('You must make a selection')
+      .max(1,'only make one selection')
+      
+    
+   
+      
+  
   }),
   onSubmit: values => {
     alert(JSON.stringify(values, null, 2));
   },
 });
+
+
 
 
 
@@ -132,7 +144,10 @@ const determineForm = (values) => {
         
 
       </Field>
+
   </label>
+
+
   </>
     )
   }
@@ -142,10 +157,8 @@ const determineForm = (values) => {
   return (<div>
     <h1>Sign Up</h1>
     <Formik
-
-      onSubmit={async values => {
-        console.log(values)
-      }}
+    initialValues={useFormik}
+   
     >
       {({ values }) => (
         <Form  onSubmit={formik.handleSubmit} >
@@ -191,23 +204,27 @@ const determineForm = (values) => {
          
           <div role="group" aria-labelledby="checkbox-group">
             <label>
-              <Field onChange={formik.handleChange}  type="checkbox" name="checked" value="Student" />
+              <Field onChange={formik.handleChange}  type="checkbox" name="checked" value="Student"   checked={Field.value}/>
               Student
             </label>
             <label>
-              <Field onChange={formik.handleChange}  type="checkbox" name="checked" value="Admin" />
+              <Field onChange={formik.handleChange}  type="checkbox" name="checked" value="Admin" checked={Field.value} />
               Admin
             </label>
             <label>
-              <Field onChange={formik.handleChange}  type="checkbox" name="checked" value="Volunteer" />
+              <Field onChange={formik.handleChange}  type="checkbox" name="checked" value="Volunteer"  checked={Field.value}  />
               Volunteer
             </label>
+            {formik.errors.checked ? (
+         <div>{formik.errors.checked}</div>
+       ) : null}
           </div>
 
      
           {determineForm(formik.values)}
 
-          <button type="submit">Submit</button>
+          <button disabled={!formik.isValid}
+ type="submit">Submit</button>
 
         
         </Form>
