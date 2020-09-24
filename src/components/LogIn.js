@@ -34,7 +34,6 @@ const Login = (props) => {
    .catch((err) => console.log(err));
  }
 
- console.log('current user from login', currentUser)
   const formik = useFormik({
     initialValues: {
       password: '',

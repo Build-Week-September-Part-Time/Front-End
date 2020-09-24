@@ -1,6 +1,7 @@
 import React, {useContext} from 'react'
 import styled from 'styled-components'
 import CurrentUserContext from '../../contexts/CurrentUserContext'
+import { Link } from "react-router-dom";
 
 
 //components
@@ -23,11 +24,15 @@ function AdminHome() {
 const { currentUser } = useContext(CurrentUserContext)
 
 
+const logoutToken = () => {
+    localStorage.removeItem("token");
+    alert('You are now Logged Out')
+  };
 
     return (
         <div>
-   
             <Container>
+            <Link to='/'onClick={logoutToken}>Log Out</Link>
                 <h1>Welcome {currentUser.firstname},</h1>
                 <h2> Available Tutors</h2>
                 <VolunteerList />

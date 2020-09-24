@@ -1,7 +1,10 @@
 import React, {useState} from "react";
+import ReactDOM from "react-dom";
 import { Formik, Field, Form } from "formik";
+import Volunteer from './FormTypes/volunteer';
 import axiosWithAuth from "../utils/axiosWithAuth";
 import axios from 'axios'
+import { useHistory } from 'react-router-dom';
 
 let states = ["Alaska",
     "Alabama",
@@ -62,10 +65,11 @@ let states = ["Alaska",
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
 
-function SignUp  (){
+function SignUp  (props){
+const history = useHistory()
 
-const postNewUser = (e, values) => {
-  e.preventDefault()
+
+const postNewUser = (values) => {
   console.log('values',values)
 
   const newUser = {
@@ -75,13 +79,24 @@ const postNewUser = (e, values) => {
     state: values.state,
     password: values.password,
     availability: values.available,
-    accountType: values.checked.toString()
+    accountType: values.checked.toString().toLowerCase()
   }
-  console.log('newUser',newUser)
+  
+  console.log('newUser', newUser)
   axios
   .post('https://upgrade-tutor.herokuapp.com/auth/register', newUser)
   .then(res => {
     console.log("res is herrr", res)
+    localStorage.setItem('token', res.data.token);
+    if(res.data.user.accountType === "volunteer") {
+      props.history.push("/volunteer-home");
+    }
+    else if(res.data.user.accountType === "admin") {
+      props.history.push("/admin-home");
+    }
+    else if(res.data.user.accountType === "student") {
+      props.history.push("/student-home");
+    }
   })
   .catch(err =>{
     console.log('nope', err)
@@ -114,8 +129,6 @@ const determineForm = (values) => {
         <option value='Morning'>Morning</option>
         <option value='Afternoons'>Afternoons</option>
         <option value='Evenings'>Evenings</option>
-        
-
       </Field>
   </label>
   </>
@@ -142,7 +155,7 @@ const determineForm = (values) => {
       }}
     >
       {({ values }) => (
-        <Form onSubmit = {Formik.handleSubmit} >
+        <Form >
       
       <label htmlFor="firstName">First Name</label>
         <Field id="firstName" name="firstName" placeholder="Jane" />
@@ -185,7 +198,7 @@ const determineForm = (values) => {
 
           {determineForm(values)}
 
-          <button type='submit'>Submit</button>
+          <button onSubmit={postNewUser}>Submit</button>
 
         
         </Form>

@@ -1,9 +1,16 @@
-import React, { useState } from "react"; 
+import React, { useState, useContext } from "react"; 
 import styled from 'styled-components'
+import { TaskListContext } from "../../contexts/TaskListContext";
 import TaskList from '../admin/TaskList'
 
 function VolunteerCard(props) {
+    const {tasks} = useContext(TaskListContext)
     const [showTasks, setShowTasks] = useState(false)
+    const [userTasks, setUserTasks] = useState([])
+
+    const handleTaskListClick = (e) => {
+     
+    }
 
     const showTaskList = (e) =>{
         setShowTasks(true)
@@ -18,7 +25,7 @@ function VolunteerCard(props) {
             <p>Availability: {props.volunteer.availability}</p>
             <button onClick={()=> showTaskList()}>Show Tasks</button>
             {showTasks && (
-                <TaskList/>
+                <TaskList />
             )}
          
         </Card>

@@ -1,4 +1,4 @@
-import React, {useState, useContext} from "react";
+import React, {useState, useContext, useEffect} from "react";
 import styled from "styled-components";
 import axiosWithAuth from '../../utils/axiosWithAuth'
 import CurrentUserContext from '../../contexts/CurrentUserContext'
@@ -17,24 +17,26 @@ const initialTask = {
 }
 
 const Task = (props) => {
+  
     const [taskToEdit, setTaskToEdit] = useState(initialTask)
-    const { currentUser } = useContext(CurrentUserContext)
     const [editing, setEditing] = useState(false)
-    console.log('current user from task',currentUser)
+
 
     const handleChange = (e) =>{
         setTaskToEdit ({...taskToEdit, [ e.target.name]: e.target.value })
     }
 
     const saveEdit = (e) => {
+        e.preventDefault();
+
         const edit = {
             title: taskToEdit.title,
             description: taskToEdit.description,
         }
-        e.preventDefault()
-        console.log('look here', edit)
+
+        console.log('this is what im sending to backend', edit)
         axiosWithAuth()
-        .put(`/dashboard/assignTasks/${currentUser.id}`, edit)
+        .put(`/dashboard/assignTasks/${props.task.id}`, edit)
         .then(res =>{
             console.log('update change', res)
             // setUserToEdit(res.data)
@@ -47,9 +49,9 @@ const Task = (props) => {
     }
 
 
-    const editTask = (task) => {
+    const editTask = (t) => {
         setEditing(true)
-        setTaskToEdit(task)
+        setTaskToEdit(props.task)
     }
 
 	return (
@@ -59,12 +61,23 @@ const Task = (props) => {
 			<span>Description: {props.task.description}</span>
 			<div>
 				<button>DELETE</button>
-				<button onClick={()=> editTask()}>EDIT</button>
+				<button onClick={()=> editTask(props)}>EDIT</button>
 			</div>
             {editing && (
             <form onSubmit={saveEdit}>
-                <input placeholder='title'type="text" name='title' value={props.task.title} onChange={handleChange}/>
-                <input placeholder='description'type="text" name='description' value={props.task.description} onChange={handleChange}/>
+                <input 
+                placeholder='title'
+                type="text" 
+                name='title' 
+                value={taskToEdit.title} 
+                onChange={handleChange}
+                />
+                <input 
+                placeholder='description'
+                type="text" 
+                name='description' 
+                value={taskToEdit.description} 
+                onChange={handleChange}/>
                 <button>Update</button>
             </form>
             )} 
