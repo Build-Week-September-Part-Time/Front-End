@@ -1,10 +1,6 @@
-import React, {useState} from "react";
-import ReactDOM from "react-dom";
+import React from "react";
 import { Formik, Field, Form, useFormik } from "formik";
-import Volunteer from './FormTypes/volunteer';
-import axiosWithAuth from "../utils/axiosWithAuth";
 import axios from 'axios'
-import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 
 let states = ["Alaska",
@@ -67,7 +63,7 @@ let states = ["Alaska",
 
 
 function SignUp  (props){
-const history = useHistory()
+
 const postNewUser = (values) => {
   console.log('values',values)
 
@@ -102,9 +98,6 @@ const postNewUser = (values) => {
     console.log('nope', err)
   })
 } 
-
-
-
 
 const formik = useFormik({
   initialValues: {
@@ -265,6 +258,6 @@ const determineForm = (values) => {
    
  
   </div>)
-};
+}
 
 export default SignUp
