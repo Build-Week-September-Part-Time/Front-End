@@ -17,6 +17,7 @@ import StudentHome from "./components/student/StudentHome";
 import VolunteerHome from "./components/volunteer/VolunteerHome";
 import AdminHome from "./components/admin/AdminHome";
 import NavBar from "./components/NavBar";
+import UpdateVolunteer from "./components/volunteer/UpdateVolunteer";
 
 
 function App() {
@@ -77,6 +78,7 @@ useEffect(()=>{
 					<PrivateRoute path='/student-home' component={StudentHome} />
 					<PrivateRoute path='/volunteer-home' component={VolunteerHome} />
 					<PrivateRoute path='/admin-home' component={AdminHome} />
+					<PrivateRoute path='/update-volunteer' component={UpdateVolunteer}/>
 				</TaskListContext.Provider>
 				</VolunteerListContext.Provider>
 				</CurrentUserContext.Provider>
