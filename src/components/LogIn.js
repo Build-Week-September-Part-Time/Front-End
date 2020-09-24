@@ -53,7 +53,7 @@ const Login = (props) => {
     },
   });
   return (
-    <form onSubmit={formik.handleSubmit}>
+    <form class='login' onSubmit={formik.handleSubmit}>
         <h1>LOGIN</h1>
     
       <label htmlFor="email">Email Address</label>
