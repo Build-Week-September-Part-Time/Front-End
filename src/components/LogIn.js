@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, { useContext } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axiosWithAuth from "../utils/axiosWithAuth";
@@ -8,7 +8,7 @@ import CurrentUserContext from "../contexts/CurrentUserContext";
 
 const Login = (props) => {
 
- const {setUser, currentUser} = useContext(CurrentUserContext);
+ const {setUser} = useContext(CurrentUserContext);
 
  let loginFunc = (values) => {
    console.log("passed values", values);
@@ -16,18 +16,18 @@ const Login = (props) => {
    axiosWithAuth()
    .post("https://upgrade-tutor.herokuapp.com/auth/login", values)
    .then((res) => {
-    console.log("res here",res);
+    // console.log("res here",res);
     localStorage.setItem("token", res.data.token);
     setUser(res.data.user);
     //Redirects after logging in
 
-    if(res.data.user.accountType == "volunteer") {
+    if(res.data.user.accountType === "volunteer") {
       props.history.push("/volunteer-home");
     }
-    else if(res.data.user.accountType == "admin") {
+    else if(res.data.user.accountType === "admin") {
       props.history.push("/admin-home");
     }
-    else if(res.data.user.accountType == "student") {
+    else if(res.data.user.accountType === "student") {
       props.history.push("/student-home");
     }
    })

@@ -1,11 +1,13 @@
 import React, {useContext, useState} from 'react'
 import styled from 'styled-components'
-import { TaskListContext } from '../../contexts/TaskListContext'
+import axiosWithAuth from '../../utils/axiosWithAuth'
+import CurrentUserContext from "../../contexts/CurrentUserContext";
+
 
 const Container = styled.div`
     margin: 20px auto;
-    width: 40%;
-    border: 3px solid grey;
+    width: 90%;
+    border: 3px solid white;
     padding: 20px;
     text-align: center;
     border-radius: 25px;
@@ -14,10 +16,12 @@ const Container = styled.div`
 const initialState = {
     title: '',
     description: '',
+    volunteer_email:'',
 }
 
 const TaskForm = () => {
-    const {addTask,tasks} = useContext(TaskListContext)
+    const {currentUser} = useContext(CurrentUserContext)
+    console.log('currentUser',currentUser)
     const [form, setForm] = useState(initialState)
 
     const handleChange = (e) =>{
@@ -27,39 +31,59 @@ const TaskForm = () => {
         })
     }
 
-    // const handleSubmit = (e) =>{
-    //     e.preventDefault()
-    //     addTask(title)
-    //     setTitle('')
-    // }
+    const handleSubmit = (e) =>{
+        e.preventDefault()
 
-    // const postNewTodo = todo =>{
-    //     axios
-    //     .post()
-    // }
+        const newTodo ={
+            title: form.title.trim(),
+            description: form.description.trim(),
+            volunteer_email: form.volunteer_email
+        }
+        console.log('sending this', newTodo)
+        axiosWithAuth()
+        .post('https://upgrade-tutor.herokuapp.com/dashboard/assignTasks', newTodo)
+        .then(res =>{
+            console.log('yayyy oh yeah', res)
+        })
+        .catch(err =>{
+            console.log(err)
+        })
+
+        setForm(initialState)
+    }
 
     return (
         <Container>
-            <form >
+            <form onSubmit={handleSubmit}>
                 <label htmlFor="">Add New Task</label>
                 <br/>
                 <input 
                 type="text"
                 name='title'
                 placeholder='Title'
-                // onChange={handleChange}
+                onChange={handleChange}
+                value={form.title}
                 />
                 <br/>
                 <input 
                 type="text"
                 name="description"
                 placeholder='Desricption'
-                // onChange={handleChange}
+                onChange={handleChange}
+                value={form.description}
                 />
-            </form>
-            <div>
+               <br/>
+               <input 
+                type="text"
+                name="volunteer_email"
+                placeholder='Email'
+                onChange={handleChange}
+                value={form.email}
+                />
+               <br/>
                 <button>Add Task</button>
-            </div>
+            </form>
+           
         </Container>
     )
 }
