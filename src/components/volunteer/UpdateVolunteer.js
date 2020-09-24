@@ -1,6 +1,7 @@
 import React, {useState, useContext, useEffect} from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import axiosWithAuth from "../../utils/axiosWithAuth";
+import axios from "axios";
 import { useHistory } from "react-router-dom";
 
 
@@ -22,30 +23,31 @@ function UpdateVolunteer() {
 
     useEffect(() => {
         setFormData(currentUser);
-       //  console.log("currentVolunteer", currentVolunteer);
+        console.log("starting currentVolunteer", currentUser);
        }, [currentUser]);
     
 
 
     function changeHandler(e) {
         e.persist();
-        console.log("change handler");
-        console.log("e", e);
-        console.log("form data before", formData);
+        // console.log("change handler");
+        // console.log("e", e);
+        // console.log("form data before", formData);
     
         setFormData({...formData, [e.target.name]: e.target.value});
-        console.log("form data after", formData);
+        // console.log("form data after", formData);
 
     };
 
 
     function handleSubmit(e) {
         e.preventDefault();
-        console.log("pulledUser", currentUser);
-        console.log("formData", formData);
+        //Test 
+        // setFormData({...formData, password:currentUser.password});
+        console.log("Final form data", formData);
 
-        axiosWithAuth()
-        .put('/dashboard/volunteers/${currentUser.id}', formData)
+        axios
+        .put('https://upgrade-tutor.herokuapp.com/dashboard/volunteers/${currentUser.id}', formData)
         .then(() => {
             history.push("/volunteer-home");
         }
