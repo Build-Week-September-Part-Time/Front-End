@@ -1,64 +1,9 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { Formik, Field, Form, useFormik } from "formik";
 import axios from 'axios'
 import * as Yup from 'yup';
 import styled from "styled-components";
 
-let states = ["Alaska",
-    "Alabama",
-    "Arkansas",
-    "American Samoa",
-    "Arizona",
-    "California",
-    "Colorado",
-    "Connecticut",
-    "District of Columbia",
-    "Delaware",
-    "Florida",
-    "Georgia",
-    "Guam",
-    "Hawaii",
-    "Iowa",
-    "Idaho",
-    "Illinois",
-    "Indiana",
-    "Kansas",
-    "Kentucky",
-    "Louisiana",
-    "Massachusetts",
-    "Maryland",
-    "Maine",
-    "Michigan",
-    "Minnesota",
-    "Missouri",
-    "Mississippi",
-    "Montana",
-    "North Carolina",
-    " North Dakota",
-    "Nebraska",
-    "New Hampshire",
-    "New Jersey",
-    "New Mexico",
-    "Nevada",
-    "New York",
-    "Ohio",
-    "Oklahoma",
-    "Oregon",
-    "Pennsylvania",
-    "Puerto Rico",
-    "Rhode Island",
-    "South Carolina",
-    "South Dakota",
-    "Tennessee",
-    "Texas",
-    "Utah",
-    "Virginia",
-    "Virgin Islands",
-    "Vermont",
-    "Washington",
-    "Wisconsin",
-    "West Virginia",
-    "Wyoming"]
 
     const StyledErrors = styled.div`
     color: red;
@@ -66,6 +11,26 @@ let states = ["Alaska",
 
 
 function SignUp  (props){
+  const [states, setStates] = useState([])
+  useEffect(() => {
+    axios.get('https://www.universal-tutorial.com/api/states/United States', {
+    headers: {
+      "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfZW1haWwiOiJuZ3JpZmZpdGgyOUBzdHVkZW50LmVnY2MuZWR1IiwiYXBpX3Rva2VuIjoiTmZaUGRGLWY4Q0xSbXJueC1aUGJTZ0FhdDBLVG9VbnFpUExMZ1RyTkFwb2FZUDlZZm45aFdpTDZudXJGb0hkOEIwSSJ9LCJleHAiOjE2MDA5OTI4MTN9.Z1Z0BAoV6vJqFbpQNzLlfLEItRPGJFrBYolL_JgV8eQ",
+    "Accept": "application/json"
+     //
+    }
+  })
+  .then(function (response) {
+    return response.data.map((e) => {
+      return setStates(states => [...states, e])
+      
+      
+    })
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+  }, [])
 
 const postNewUser = (values) => {
   console.log('values',values)
@@ -157,7 +122,7 @@ const determineForm = (values) => {
 <Field as="select" name="state">
 
           {states.map((e, index) => {
-              return <option key={index} value={e}>{e}</option>
+              return <option key={index} value={e.state_name}>{e.state_name}</option>
           })}
 
       </Field>
