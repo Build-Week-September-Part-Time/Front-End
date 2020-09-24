@@ -1,9 +1,14 @@
-import React from "react"; 
+import React, { useState, useContext } from "react"; 
 import styled from 'styled-components'
+import { TaskListContext } from "../../contexts/TaskListContext";
+import TaskList from '../admin/TaskList'
 
 function VolunteerCard(props) {
-
-
+    const {tasks} = useContext(TaskListContext)
+    const [showTasks, setShowTasks] = useState(false)
+    const [userTasks, setUserTasks] = useState([])
+    console.log("Volunteer card called");
+  
     return(<Card>
         <h3>{props.volunteer.firstname} {props.volunteer.lastname}</h3>
         <p>Email: {props.volunteer.email}</p>
@@ -15,7 +20,7 @@ function VolunteerCard(props) {
 export default VolunteerCard;
 
 const Card = styled.div`
-margin: auto;
+margin: auto;c
 width: 300px;
 border: 3px solid navy;
 background: lightgrey;

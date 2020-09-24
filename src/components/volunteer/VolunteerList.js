@@ -1,10 +1,12 @@
-import Axios from "axios";
+
 import React, {useState, useEffect} from "react"; 
 import VolunteerCard from "./VolunteerCard";
 //import axiosWithAuth ?
 import axios from "axios";
 
+
 function VolunteerList() {
+
     //Replace with context
     let [volunteers, setVolunteers] = useState(testVolunteers);
 
@@ -31,8 +33,6 @@ function VolunteerList() {
              return <VolunteerCard volunteer={volunteer}/>
         }    
         )}
-    
-    
     </>);
 }
 
