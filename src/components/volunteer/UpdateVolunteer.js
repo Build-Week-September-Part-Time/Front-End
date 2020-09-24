@@ -9,7 +9,8 @@ const initialFormData = {
     lastname: "Last Name",
     email: "Email",
     state: "State",
-    availability: "Availability"
+    availability: "Availability",
+    password: "password"
 
 }
 
@@ -153,6 +154,16 @@ function UpdateVolunteer() {
                     <option value="weekdays">Weekdays</option>
                     <option value="weekends">Weekends</option>
                 </select>
+                <br/>
+                <h4>Enter Current Password</h4>
+                <label>
+                   Password
+                   <input
+                    type="text"
+                    name="password"
+                    onChange={changeHandler}
+                    />
+                </label>
                <button>Submit</button>
             </form>
         </div>
