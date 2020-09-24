@@ -25,6 +25,7 @@ const Login = (props) => {
   
     if(res.data.user.accountType == "volunteer") {
       props.history.push("/volunteer-home");
+      console.log("Login redirect", props.history);
     }
     else if(res.data.user.accountType == "admin") {
       props.history.push("/admin-home");

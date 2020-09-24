@@ -2,26 +2,31 @@ import React, {useContext, useState, useEffect} from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import styled from 'styled-components';
 import {axiosWithAuth} from "../../utils/axiosWithAuth";
+import { useHistory } from "react-router-dom";
+
 
 function CurrentVolunteer(props) {
 
   
     const [currentVolunteer, setCurrentVolunteer] = useState(testVolunteer);
     const { currentUser } = useContext(CurrentUserContext);
-  
+    let history = useHistory();
     useEffect(() => {
        setCurrentVolunteer(currentUser);
       //  console.log("currentVolunteer", currentVolunteer);
       }, [currentUser]);
    
- 
+     
+      
+
       function handleDelete(e) {
         e.preventDefault();
+        // console.log("volunteer id", currentVolunteer.id);
         axiosWithAuth()
           .delete(`/dashboard/volunteers/${currentVolunteer.id}`)
           .then((res) => {
-            props.history.push("/login");
-           
+            history.push("/login");
+            // console.log("delete redirect", props.history);
           })
           .catch((err) => console.log(err));
     
