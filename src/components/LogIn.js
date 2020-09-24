@@ -1,28 +1,26 @@
 import React, {useState, useContext} from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import axios from "axios";
+import axiosWithAuth from "../utils/axiosWithAuth";
 import CurrentUserContext from "../contexts/CurrentUserContext";
 
 /* admin login is admin1@gmail.com and password, volunteer login is volunteer1@gmail.com and password, student login is jakegilman@gmail.com and password */
 
 const Login = (props) => {
 
- const {currentUser, setUser} = useContext(CurrentUserContext);
+ const {setUser, currentUser} = useContext(CurrentUserContext);
 
  let loginFunc = (values) => {
-   console.log("loginFunc");
    console.log("passed values", values);
 
-   axios
+   axiosWithAuth()
    .post("https://upgrade-tutor.herokuapp.com/auth/login", values)
    .then((res) => {
-     console.log(res);
+    console.log("res here",res);
     localStorage.setItem("token", res.data.token);
-   
     setUser(res.data.user);
     //Redirects after logging in
-  
+
     if(res.data.user.accountType == "volunteer") {
       props.history.push("/volunteer-home");
     }
@@ -32,11 +30,9 @@ const Login = (props) => {
     else if(res.data.user.accountType == "student") {
       props.history.push("/student-home");
     }
-    
    })
    .catch((err) => console.log(err));
  }
-
 
   const formik = useFormik({
     initialValues: {

@@ -1,12 +1,11 @@
-
-import React, {useEffect, useContext} from 'react'
-import axios from 'axios'
+import React, {useContext} from 'react'
 import styled from 'styled-components'
-import { TaskListContext } from '../../contexts/TaskListContext'
+import CurrentUserContext from '../../contexts/CurrentUserContext'
+import { Link } from "react-router-dom";
+
 
 //components
-import TaskList from './TaskList'
-import TaskForm from './TaskForm'
+import VolunteerList from '../volunteer/VolunteerList'
 
 
 const Container = styled.div`
@@ -16,21 +15,29 @@ const Container = styled.div`
     padding: 20px;
     text-align: center;
     border-radius: 25px;
+h1{
+    text-transform: capitalize;
+}
 `
 
-
 function AdminHome() {
-const {getTask} = useContext(TaskListContext)
+const { currentUser } = useContext(CurrentUserContext)
+
+
+const logoutToken = () => {
+    localStorage.removeItem("token");
+    alert('You are now Logged Out')
+  };
 
     return (
-      
+        <div>
             <Container>
-                <h1>Welcome 'Name',</h1>
-                <h3>CREATE A TASK FOR YOUR VOLUNTEERS</h3>
-                <TaskForm/>
-                <TaskList/>
+            <Link to='/'onClick={logoutToken}>Log Out</Link>
+                <h1>Welcome {currentUser.firstname},</h1>
+                <h2> Available Tutors</h2>
+                <VolunteerList />
             </Container>
-        
+        </div>
     )
 }
 export default AdminHome

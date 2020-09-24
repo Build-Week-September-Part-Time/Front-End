@@ -1,5 +1,9 @@
 import React, {useState, useEffect} from "react";
 import ReactDOM from "react-dom";
+import { Formik, Field, Form } from "formik";
+import Volunteer from './FormTypes/volunteer';
+import axios from 'axios'
+import { useHistory } from 'react-router-dom';
 import { Formik, Field, Form, useFormik } from "formik";
 import * as Yup from 'yup';
 
@@ -62,8 +66,8 @@ let states = ["Alaska",
    
 
 
-
 function SignUp  (props){
+const history = useHistory()
 
 const formik = useFormik({
   initialValues: {
@@ -108,9 +112,36 @@ const formik = useFormik({
 
 
 
-
-
-
+  const newUser = {
+    firstname: values.firstName.trim(),
+    lastname: values.lastName.trim(),
+    email: values.email.trim(),
+    state: values.state,
+    password: values.password,
+    availability: values.available,
+    accountType: values.checked.toString().toLowerCase()
+  }
+  
+  console.log('newUser', newUser)
+  axios
+  .post('https://upgrade-tutor.herokuapp.com/auth/register', newUser)
+  .then(res => {
+    console.log("res is herrr", res)
+    localStorage.setItem('token', res.data.token);
+    if(res.data.user.accountType === "volunteer") {
+      props.history.push("/volunteer-home");
+    }
+    else if(res.data.user.accountType === "admin") {
+      props.history.push("/admin-home");
+    }
+    else if(res.data.user.accountType === "student") {
+      props.history.push("/student-home");
+    }
+  })
+  .catch(err =>{
+    console.log('nope', err)
+  })
+} 
 
 const determineForm = (values) => {
   if(values.checked[0] === 'Student'){
@@ -126,9 +157,6 @@ const determineForm = (values) => {
       Select your state
 <Field as="select" name="state">
 
-
-
-
           {states.map((e, index) => {
               return <option key={index} value={e}>{e}</option>
           })}
@@ -137,12 +165,10 @@ const determineForm = (values) => {
   </label>
   <label >
      Pick your availability
-<Field as="select" name="available">
+    <Field as="select" name="available">
         <option value='Morning'>Morning</option>
         <option value='Afternoons'>Afternoons</option>
         <option value='Evenings'>Evenings</option>
-        
-
       </Field>
 
   </label>
@@ -196,12 +222,12 @@ const determineForm = (values) => {
           placeholder="must be at least 8 characters"
           type="password"
         />
-    
+   
     {formik.errors.password ? (
          <div>{formik.errors.password}</div>
        ) : null}
        <div></div>
-         
+     
           <div role="group" aria-labelledby="checkbox-group">
             <label>
               <Field onChange={formik.handleChange}  type="checkbox" name="checked" value="Student"   checked={Field.value}/>
@@ -222,9 +248,9 @@ const determineForm = (values) => {
 
      
           {determineForm(formik.values)}
-
           <button disabled={!formik.isValid}
  type="submit">Submit</button>
+
 
         
         </Form>

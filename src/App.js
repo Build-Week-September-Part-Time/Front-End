@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
+//contexts
 import { TaskListContext } from "./contexts/TaskListContext";
 import CurrentUserContext from "./contexts/CurrentUserContext";
 import VolunteerListContext from "./contexts/VolunteerListContext";
-import PrivateRoute from "./utils/PrivateRoute";
-import data from "./data"
-import axios from 'axios'
 
+//utils
+import PrivateRoute from "./utils/PrivateRoute";
+import axiosWithAuth from "./utils/axiosWithAuth";
 
 //components
 import LogIn from "./components/LogIn";
@@ -16,7 +17,7 @@ import StudentHome from "./components/student/StudentHome";
 import VolunteerHome from "./components/volunteer/VolunteerHome";
 import AdminHome from "./components/admin/AdminHome";
 import NavBar from "./components/NavBar";
-import Axios from "axios";
+
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -24,47 +25,34 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
 
   //This lags slightly behind and doesn't update until next render. How do I fix?
-  const setUser = currentUser => {
-	console.log("Set user, current usder", currentUser);
+  const setUser = CurrentUser => {
+	console.log("Set user, current usder", CurrentUser);
 	//Set the email of the logged in user
-	setCurrentUser(currentUser);
-	console.log(currentUser);
+	setCurrentUser(CurrentUser);
+	console.log('this current user',CurrentUser);
   };
-//   const [tasks] = useState(data);
-  
-//   GET tasks from fake API 
-//   useEffect(()=>{
-// 	axios
-// 	.get("http://localhost:3000/tasks")
-// 	.then(res => {
-// 		console.log('YAYYY!!', res)
-// 		setTasks(res.data)
-// 	})
-// 	.catch(err =>{
-// 		console.log('NOPE!', err)
-// 	})
-// },[])
 
-// 	//POST tasks to fake API
-// 	// useEffect((newTask)=>{
-// 	// 	axios
-// 	// 	.post("http://localhost:3000/tasks", newTask )
-// 	// 	.then(res => {
-// 	// 		console.log("yup", res)
-// 	// 		setTasks([...tasks, res.data])
-// 	// 	})
-// 	// 	.catch(err =>{
-// 	// 		console.log("nope", err)
-// 	// 	})
-// 	// })
-	
+//   GET all Tasks 
+useEffect(()=>{
+	axiosWithAuth()
+	.get("/dashboard/assignTasks")
+	.then(res => {
+		console.log('tasks from app', res)
+		setTasks(res.data)
+	})
+	.catch(err =>{
+		console.log('NOPE!', err)
+	})
+},[])
+
+
+	//GET all Volunteers
 	useEffect(() => {
-
-	axios
-		.get("https://upgrade-tutor.herokuapp.com/dashboard/volunteers")
+	axiosWithAuth()
+		.get("/dashboard/volunteers")
 		.then((res) => {
+			console.log('volunteers from app', res)
 			 setVolunteers(res.data);
-			 console.log("App volunteers", volunteers)
 		})
 		.catch((err) => {
 			console.log("Volunteer get error");
@@ -78,7 +66,7 @@ function App() {
 			<h1>⬆upGrade</h1>
 
 			<Router>
-				<CurrentUserContext.Provider value={{currentUser, setUser}}>
+				<CurrentUserContext.Provider value={{setUser, currentUser}}>
 				<VolunteerListContext.Provider value={{volunteers}}>
 				<TaskListContext.Provider value={{tasks}}>
 					<NavBar />
