@@ -51,8 +51,9 @@ useEffect(()=>{
 	axiosWithAuth()
 		.get("/dashboard/volunteers")
 		.then((res) => {
-			console.log('volunteers from app', res)
+			
 			 setVolunteers(res.data);
+			 
 		})
 		.catch((err) => {
 			console.log("Volunteer get error");

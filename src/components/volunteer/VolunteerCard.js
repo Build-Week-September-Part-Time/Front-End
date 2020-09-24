@@ -7,37 +7,20 @@ function VolunteerCard(props) {
     const {tasks} = useContext(TaskListContext)
     const [showTasks, setShowTasks] = useState(false)
     const [userTasks, setUserTasks] = useState([])
-
-    const handleTaskListClick = (e) => {
-     
-    }
-
-    const showTaskList = (e) =>{
-        setShowTasks(true)
-    }
-
-    return(
-    <div>
-        <Card>
-            <h3>{props.volunteer.firstname} {props.volunteer.lastname}</h3>
-            <p>Email: {props.volunteer.email}</p>
-            <p>State: {props.volunteer.state}</p>
-            <p>Availability: {props.volunteer.availability}</p>
-            <button onClick={()=> showTaskList()}>Show Tasks</button>
-            {showTasks && (
-                <TaskList />
-            )}
-         
-        </Card>
-        
-    </div>
-    );
+    console.log("Volunteer card called");
+  
+    return(<Card>
+        <h3>{props.volunteer.firstname} {props.volunteer.lastname}</h3>
+        <p>Email: {props.volunteer.email}</p>
+        <p>State: {props.volunteer.state}</p>
+        <p>Availability: {props.volunteer.availability}</p>
+    </Card>);
 }
 
 export default VolunteerCard;
 
 const Card = styled.div`
-margin: auto;
+margin: auto;c
 width: 300px;
 border: 3px solid navy;
 background: lightgrey;

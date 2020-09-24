@@ -1,5 +1,6 @@
 import React, {useState} from "react"; 
 import VolunteerList from "./VolunteerList";
+import CurrentVolunteer from "./CurrentVolunteer";
 
 
 //Requests sent to https://upgrade-tutor.herokuapp.com/
@@ -7,13 +8,12 @@ import VolunteerList from "./VolunteerList";
 
 function VolunteerHome() {
 
-
     
     return(
     <div>
         <p>Volunteer Home Page</p>
 
-        <h3>Your Data:</h3>
+        <CurrentVolunteer/>
 
 
         <h3>Your tasks</h3>
