@@ -1,10 +1,10 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import ReactDOM from "react-dom";
-import { Formik, Field, Form } from "formik";
+import { Formik, Field, Form, useFormik } from "formik";
 import Volunteer from './FormTypes/volunteer';
+import axiosWithAuth from "../utils/axiosWithAuth";
 import axios from 'axios'
 import { useHistory } from 'react-router-dom';
-import { Formik, Field, Form, useFormik } from "formik";
 import * as Yup from 'yup';
 
 let states = ["Alaska",
@@ -68,6 +68,43 @@ let states = ["Alaska",
 
 function SignUp  (props){
 const history = useHistory()
+const postNewUser = (values) => {
+  console.log('values',values)
+
+  const newUser = {
+    firstname: values.firstName.trim(),
+    lastname: values.lastName.trim(),
+    email: values.email.trim(),
+    state: values.state,
+    password: values.password,
+    availability: values.available,
+    accountType: values.checked.toString().toLowerCase()
+  }
+  
+  console.log('newUser', newUser)
+  axios
+  .post('https://upgrade-tutor.herokuapp.com/auth/register', newUser)
+  .then(res => {
+    console.log("res is herrr", res)
+    // localStorage.setItem('token', res.data.token);
+
+    if(res.data.accountType === "volunteer") {
+      props.history.push("/volunteer-home");
+    }
+    else if(res.data.accountType === "admin") {
+      props.history.push("/admin-home");
+    }
+    else if(res.data.accountType === "student") {
+      props.history.push("/student-home");
+    }
+  })
+  .catch(err =>{
+    console.log('nope', err)
+  })
+} 
+
+
+
 
 const formik = useFormik({
   initialValues: {
@@ -81,6 +118,7 @@ const formik = useFormik({
     available: 'Morning',
    
   },
+
   validationSchema: Yup.object({
     firstName: Yup.string()
       
@@ -99,49 +137,14 @@ const formik = useFormik({
       checked: Yup.array()
       .required('You must make a selection')
       .max(1,'only make one selection')
-      
-    
-   
-      
-  
   }),
+
   onSubmit: values => {
-    alert(JSON.stringify(values, null, 2));
+    // alert(JSON.stringify(values, null, 2));
+    postNewUser(values)
   },
 });
 
-
-
-  const newUser = {
-    firstname: values.firstName.trim(),
-    lastname: values.lastName.trim(),
-    email: values.email.trim(),
-    state: values.state,
-    password: values.password,
-    availability: values.available,
-    accountType: values.checked.toString().toLowerCase()
-  }
-  
-  console.log('newUser', newUser)
-  axios
-  .post('https://upgrade-tutor.herokuapp.com/auth/register', newUser)
-  .then(res => {
-    console.log("res is herrr", res)
-    localStorage.setItem('token', res.data.token);
-    if(res.data.user.accountType === "volunteer") {
-      props.history.push("/volunteer-home");
-    }
-    else if(res.data.user.accountType === "admin") {
-      props.history.push("/admin-home");
-    }
-    else if(res.data.user.accountType === "student") {
-      props.history.push("/student-home");
-    }
-  })
-  .catch(err =>{
-    console.log('nope', err)
-  })
-} 
 
 const determineForm = (values) => {
   if(values.checked[0] === 'Student'){
