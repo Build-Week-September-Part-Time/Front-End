@@ -47,8 +47,9 @@ function UpdateVolunteer() {
         console.log("Final form data", formData);
 
         axios
-        .put('https://upgrade-tutor.herokuapp.com/dashboard/volunteers/${currentUser.id}', formData)
-        .then(() => {
+        .put('https://upgrade-tutor.herokuapp.com/dashboard/volunteers/${formData.id}', formData)
+        .then((res) => {
+            console.log("result, put", res);
             history.push("/volunteer-home");
         }
             
