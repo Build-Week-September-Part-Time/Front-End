@@ -31,7 +31,11 @@ function CurrentVolunteer(props) {
           .catch((err) => console.log(err));
     
       }
+      
+      function handleEdit(e) {
+        history.push('/update-volunteer');
 
+      }
 
     return (
     <div>
@@ -45,6 +49,7 @@ function CurrentVolunteer(props) {
             <p>Availability: {currentVolunteer.availability}</p>
         </Card>
         <button onClick={handleDelete}>Delete</button>
+        <button onClick={handleEdit}>Edit</button>
         {/* {currentUser != {} && <VolunteerCard volunteer={currentUser}/>
         } */}
 
