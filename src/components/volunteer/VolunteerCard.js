@@ -1,19 +1,19 @@
 import React, { useState, useContext } from "react"; 
 import styled from 'styled-components'
-import { TaskListContext } from "../../contexts/TaskListContext";
 import TaskList from '../admin/TaskList'
+import TaskForm from '../admin/TaskForm'
+
 
 function VolunteerCard(props) {
-    const {tasks} = useContext(TaskListContext)
     const [showTasks, setShowTasks] = useState(false)
-    const [userTasks, setUserTasks] = useState([])
-
-    const handleTaskListClick = (e) => {
-     
-    }
+    const [form,setForm] = useState(false)
 
     const showTaskList = (e) =>{
         setShowTasks(true)
+    }
+
+    const showForm = (e) =>{
+        setForm(true)
     }
 
     return(
@@ -23,10 +23,17 @@ function VolunteerCard(props) {
             <p>Email: {props.volunteer.email}</p>
             <p>State: {props.volunteer.state}</p>
             <p>Availability: {props.volunteer.availability}</p>
+            <button onClick={()=> showForm()}>Add New Task</button>
+            <br/>
+            {form && (
+                <TaskForm/>
+            )
+            }
             <button onClick={()=> showTaskList()}>Show Tasks</button>
             {showTasks && (
                 <TaskList />
             )}
+           
          
         </Card>
         
