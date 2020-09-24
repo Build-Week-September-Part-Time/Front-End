@@ -1,5 +1,7 @@
 import React, {useState, useContext, useEffect} from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
+import axiosWithAuth from "../../utils/axiosWithAuth";
+import { useHistory } from "react-router-dom";
 
 
 const initialFormData = {
@@ -15,6 +17,7 @@ function UpdateVolunteer() {
     
     const [formData, setFormData] = useState(initialFormData);
     const { currentUser } = useContext(CurrentUserContext);
+    let history = useHistory();
 
     useEffect(() => {
         setFormData(currentUser);
@@ -39,6 +42,19 @@ function UpdateVolunteer() {
         e.preventDefault();
         console.log("pulledUser", currentUser);
         console.log("formData", formData);
+
+        axiosWithAuth()
+        .put('/dashboard/volunteers/${currentUser.id}', formData)
+        .then(() => {
+            history.push("/volunteer-home");
+        }
+            
+        )
+        .catch((err) => {
+            console.log(err);
+        })
+
+
     };
 
 
