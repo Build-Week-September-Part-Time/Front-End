@@ -1,72 +1,32 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import ReactDOM from "react-dom";
 import { Formik, Field, Form } from "formik";
 import Volunteer from './FormTypes/volunteer'
-
-let states = ["Alaska",
-    "Alabama",
-    "Arkansas",
-    "American Samoa",
-    "Arizona",
-    "California",
-    "Colorado",
-    "Connecticut",
-    "District of Columbia",
-    "Delaware",
-    "Florida",
-    "Georgia",
-    "Guam",
-    "Hawaii",
-    "Iowa",
-    "Idaho",
-    "Illinois",
-    "Indiana",
-    "Kansas",
-    "Kentucky",
-    "Louisiana",
-    "Massachusetts",
-    "Maryland",
-    "Maine",
-    "Michigan",
-    "Minnesota",
-    "Missouri",
-    "Mississippi",
-    "Montana",
-    "North Carolina",
-    " North Dakota",
-    "Nebraska",
-    "New Hampshire",
-    "New Jersey",
-    "New Mexico",
-    "Nevada",
-    "New York",
-    "Ohio",
-    "Oklahoma",
-    "Oregon",
-    "Pennsylvania",
-    "Puerto Rico",
-    "Rhode Island",
-    "South Carolina",
-    "South Dakota",
-    "Tennessee",
-    "Texas",
-    "Utah",
-    "Virginia",
-    "Virgin Islands",
-    "Vermont",
-    "Washington",
-    "Wisconsin",
-    "West Virginia",
-    "Wyoming"]
-
-const sleep = ms => new Promise(r => setTimeout(r, ms));
+import axios from 'axios'
 
 
+function SignUp  (){
+const [states, setStates] = useState([])
 
-function SignUp  (props){
-
-
-const [volunteerState, setVolunteerState] = useState("")
+useEffect(() => {
+  axios.get('https://www.universal-tutorial.com/api/states/United States', {
+  headers: {
+    "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfZW1haWwiOiJuZ3JpZmZpdGgyOUBzdHVkZW50LmVnY2MuZWR1IiwiYXBpX3Rva2VuIjoiTmZaUGRGLWY4Q0xSbXJueC1aUGJTZ0FhdDBLVG9VbnFpUExMZ1RyTkFwb2FZUDlZZm45aFdpTDZudXJGb0hkOEIwSSJ9LCJleHAiOjE2MDA5OTI4MTN9.Z1Z0BAoV6vJqFbpQNzLlfLEItRPGJFrBYolL_JgV8eQ",
+  "Accept": "application/json"
+   //
+  }
+})
+.then(function (response) {
+  return response.data.map((e) => {
+    return setStates(states => [...states, e])
+    
+    
+  })
+})
+.catch(function (error) {
+  console.log(error);
+});
+}, [])
 
 
 const determineForm = (values) => {
@@ -85,10 +45,12 @@ const determineForm = (values) => {
 
 
 
-
-          {states.map((e, index) => {
-              return <option key={index} value={e}>{e}</option>
+{states.map((e, index) => {
+              return <option key={index} value={e.state_name}>{e.state_name}</option>
           })}
+          
+          
+          
 
       </Field>
   </label>
