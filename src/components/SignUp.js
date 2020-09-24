@@ -2,6 +2,7 @@ import React from "react";
 import { Formik, Field, Form, useFormik } from "formik";
 import axios from 'axios'
 import * as Yup from 'yup';
+import styled from "styled-components";
 
 let states = ["Alaska",
     "Alabama",
@@ -59,7 +60,9 @@ let states = ["Alaska",
     "West Virginia",
     "Wyoming"]
 
-   
+    const StyledErrors = styled.div`
+    color: red;
+  `;
 
 
 function SignUp  (props){
@@ -188,13 +191,13 @@ const determineForm = (values) => {
       <label htmlFor="firstName">First Name</label>
         <Field  onChange={formik.handleChange} id="firstName" name="firstName" placeholder="Jane" />
         {formik.errors.firstName ? (
-         <div>{formik.errors.firstName}</div>
+         <StyledErrors>{formik.errors.firstName}</StyledErrors>
        ) : null}
         <div></div>
         <label htmlFor="lastName">Last Name</label>
         <Field onChange={formik.handleChange}  id="lastName" name="lastName" placeholder="Doe" />
         {formik.errors.lastName ? (
-         <div>{formik.errors.lastName}</div>
+         <StyledErrors>{formik.errors.lastName}</StyledErrors>
        ) : null}
         <div></div>
         <label htmlFor="email">Email</label>
@@ -206,7 +209,7 @@ const determineForm = (values) => {
           type="email"
         />
           {formik.errors.email ? (
-         <div>{formik.errors.email}</div>
+         <StyledErrors>{formik.errors.email}</StyledErrors>
        ) : null}
      <div></div>
      <div></div>
@@ -220,7 +223,7 @@ const determineForm = (values) => {
         />
    
     {formik.errors.password ? (
-         <div>{formik.errors.password}</div>
+         <StyledErrors>{formik.errors.password}</StyledErrors>
        ) : null}
        <div></div>
      
@@ -237,8 +240,8 @@ const determineForm = (values) => {
               <Field onChange={formik.handleChange}  type="checkbox" name="checked" value="Volunteer"  checked={Field.value}  />
               Volunteer
             </label>
-            {formik.errors.checked ? (
-         <div>{formik.errors.checked}</div>
+            {formik.errors.checked ? (  
+         <StyledErrors>{formik.errors.checked}</StyledErrors>
        ) : null}
           </div>
 
