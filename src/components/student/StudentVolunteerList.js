@@ -2,6 +2,7 @@ import Axios from "axios";
 import React, {useState, useEffect, useContext} from "react"; 
 import VolunteerCard from "../volunteer/VolunteerCard";
 import VolunteerListContext from "../../contexts/VolunteerListContext";
+import styled from "styled-components";
 //import axiosWithAuth ?
 import axios from "axios";
 let defaultFilterBy = {
@@ -157,7 +158,7 @@ function VolunteerList() {
                     <option value="weekdays">Weekdays</option>
                     <option value="weekends">Weekends</option>
                 </select>	
-                <button>Submit</button>
+                <BlueButton>Submit</BlueButton>
             </form>
         {filteredVolunteers.map((volunteer, i) => {
              return <VolunteerCard volunteer={volunteer}/>
@@ -195,3 +196,12 @@ let testVolunteers = [
 
 
 ];
+
+const BlueButton = styled.button`
+    margin-top: 16px;
+    padding: 8px 16px;
+    background: #2F51B6;
+    color: #f9f9f9;
+    font-size: 1.8rem;
+    border-radius: 5px;
+`;
