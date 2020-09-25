@@ -6,7 +6,7 @@ import  CurrentUserContext  from "../../contexts/CurrentUserContext";
 const Container = styled.div`
     margin: auto;
     width: 90%;
-    border: 3px solid navy;
+    // border: 3px solid navy;
     padding: 20px;
     text-align: center;
     border-radius: 25px;

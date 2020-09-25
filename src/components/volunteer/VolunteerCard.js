@@ -22,11 +22,11 @@ export default VolunteerCard;
 const Card = styled.div`
 margin: auto;c
 width: 300px;
-border: 3px solid navy;
-background: lightgrey;
+
+background: #E3E3E3;
 padding: 20px;
 text-align: center;
-border-radius: 25px;
+
 margin: 10px;
 
 `;
