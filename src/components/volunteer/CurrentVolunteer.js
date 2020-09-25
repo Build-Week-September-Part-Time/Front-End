@@ -48,8 +48,8 @@ function CurrentVolunteer(props) {
             <p>State: {currentVolunteer.state}</p>
             <p>Availability: {currentVolunteer.availability}</p>
         </Card>
-        <button onClick={handleDelete}>Delete</button>
-        <button onClick={handleEdit}>Edit</button>
+        <BlueButton onClick={handleDelete}>Delete</BlueButton>
+        <BlueButton onClick={handleEdit}>Edit</BlueButton>
         {/* {currentUser != {} && <VolunteerCard volunteer={currentUser}/>
         } */}
 
@@ -74,11 +74,21 @@ const testVolunteer =  {
  const Card = styled.div`
 margin: auto;c
 width: 300px;
-border: 3px solid navy;
-background: lightgrey;
+
+background: #E3E3E3;
 padding: 20px;
 text-align: center;
-border-radius: 25px;
+
 margin: 10px;
 
+`;
+
+const BlueButton = styled.button`
+    margin-top: 16px;
+    margin-left: 10px;
+    padding: 8px 10px;
+    background: #2F51B6;
+    color: #f9f9f9;
+    font-size: 1.4rem;
+    border-radius: 5px;
 `;
