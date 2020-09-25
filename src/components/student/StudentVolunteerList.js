@@ -152,12 +152,14 @@ function VolunteerList() {
                     <option value="Wyoming">Wyoming</option>
                 </select>	
                 <br/>
+                <br/>
                 <select id="availability" name="availability" onChange={handleChange}>
                     <option value="">Search by Availability</option>
                     <option value="every day">Every day</option>
                     <option value="weekdays">Weekdays</option>
                     <option value="weekends">Weekends</option>
                 </select>	
+                <br/>
                 <BlueButton>Submit</BlueButton>
             </form>
         {filteredVolunteers.map((volunteer, i) => {
@@ -202,6 +204,6 @@ const BlueButton = styled.button`
     padding: 8px 16px;
     background: #2F51B6;
     color: #f9f9f9;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     border-radius: 5px;
 `;
