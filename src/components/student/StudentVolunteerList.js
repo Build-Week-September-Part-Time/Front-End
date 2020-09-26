@@ -155,9 +155,9 @@ function VolunteerList() {
                 <br/>
                 <select id="availability" name="availability" onChange={handleChange}>
                     <option value="">Search by Availability</option>
-                    <option value="every day">Every day</option>
-                    <option value="weekdays">Weekdays</option>
-                    <option value="weekends">Weekends</option>
+                    <option value="Mornings">Every day</option>
+                    <option value="Afternoons">Weekdays</option>
+                    <option value="Evenings">Weekends</option>
                 </select>	
                 <br/>
                 <BlueButton>Submit</BlueButton>

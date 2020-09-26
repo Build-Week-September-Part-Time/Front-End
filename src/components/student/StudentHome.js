@@ -1,5 +1,5 @@
 import React, {useState, useContext} from 'react'
-import styled from 'styled-components'
+import styled from 'styled-components';
 import StudentVolunteerList from "./StudentVolunteerList";
 import  CurrentUserContext  from "../../contexts/CurrentUserContext";
 
